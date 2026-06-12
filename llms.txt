@@ -39,7 +39,7 @@ Location:
 - Available for: Remote work
 
 Website:
-- https://nikodemboryczka.pl
+- https://t91a60.github.io/NikodemBoryczka
 
 GitHub:
 - https://github.com/t91a60

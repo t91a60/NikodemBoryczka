@@ -1,7 +1,7 @@
 /* TEAM */
 Name: Nikodem Boryczka
 Role: AI Developer, Junior Software Developer
-Site: nikodemboryczka.pl
+Site: t91a60.github.io/NikodemBoryczka
 Location: Tychy, Poland
 
 /* SKILLS */

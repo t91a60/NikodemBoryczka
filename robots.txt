@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://nikodemboryczka.pl/sitemap.xml
+Sitemap: https://t91a60.github.io/NikodemBoryczka/sitemap.xml

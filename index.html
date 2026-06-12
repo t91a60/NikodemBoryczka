@@ -9,20 +9,22 @@
     <meta name="author" content="Nikodem Boryczka">
     <meta name="theme-color" content="#6366f1">
     <link rel="author" href="humans.txt">
-    <link rel="canonical" href="https://nikodemboryczka.pl/">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://t91a60.github.io/NikodemBoryczka/">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" as="style">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Open Graph -->
     <meta property="og:title" content="Nikodem Boryczka - AI Developer & Software Engineer">
     <meta property="og:type" content="profile">
-    <meta property="og:url" content="https://nikodemboryczka.pl/">
+    <meta property="og:url" content="https://t91a60.github.io/NikodemBoryczka/">
     <meta property="og:description" content="AI Developer i twórca rozwiązań open-source: OSP Logbook, AlkoRater, PurrOS. Dostępny na internship.">
-    <meta property="og:image" content="https://nikodemboryczka.pl/img/og-image.png">
+    <meta property="og:image" content="https://t91a60.github.io/NikodemBoryczka/img/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="pl_PL">
@@ -34,7 +36,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Nikodem Boryczka - AI Developer">
     <meta name="twitter:description" content="AI Developer, Junior Software Developer, twórca OSP Logbook i AlkoRater.">
-    <meta name="twitter:image" content="https://nikodemboryczka.pl/img/og-image.png">
+    <meta name="twitter:image" content="https://t91a60.github.io/NikodemBoryczka/img/og-image.png">
 
     <link rel="stylesheet" href="css/style.css">
 
@@ -45,13 +47,13 @@
       "@graph": [
         {
           "@type": "Person",
-          "@id": "https://nikodemboryczka.pl/#person",
+          "@id": "https://t91a60.github.io/NikodemBoryczka/#person",
           "name": "Nikodem Boryczka",
           "alternateName": ["Borys", "t91a60"],
           "jobTitle": "AI Developer",
           "description": "Junior Software Developer specjalizujący się w AI i Open Source. Twórca OSP Logbook i AlkoRater.",
-          "url": "https://nikodemboryczka.pl/",
-          "image": "https://nikodemboryczka.pl/img/og-image.png",
+          "url": "https://t91a60.github.io/NikodemBoryczka/",
+          "image": "https://t91a60.github.io/NikodemBoryczka/img/og-image.png",
           "address": {
             "@type": "PostalAddress",
             "addressLocality": "Tychy",
@@ -66,36 +68,36 @@
         },
         {
           "@type": "SoftwareSourceCode",
-          "@id": "https://nikodemboryczka.pl/projects/osp-logbook#code",
+          "@id": "https://t91a60.github.io/NikodemBoryczka/projects/osp-logbook#code",
           "name": "OSP Logbook",
           "programmingLanguage": ["Python", "HTML", "CSS", "JavaScript"],
           "description": "Self-hosted, mobile-first web app for Volunteer Fire Departments (OSP) built with Flask and SQLite.",
           "codeRepository": "https://github.com/t91a60/osp-logbook",
-          "author": { "@id": "https://nikodemboryczka.pl/#person" }
+          "author": { "@id": "https://t91a60.github.io/NikodemBoryczka/#person" }
         },
         {
           "@type": "SoftwareApplication",
-          "@id": "https://nikodemboryczka.pl/projects/alkorater#app",
+          "@id": "https://t91a60.github.io/NikodemBoryczka/projects/alkorater#app",
           "name": "AlkoRater",
           "applicationCategory": "LifestyleApplication",
           "operatingSystem": "iOS",
           "description": "Premium iOS PWA for rating and cataloging spirits. Hardware-accelerated UI with local-first privacy.",
           "codeRepository": "https://github.com/t91a60/AlkoRater",
-          "author": { "@id": "https://nikodemboryczka.pl/#person" }
+          "author": { "@id": "https://t91a60.github.io/NikodemBoryczka/#person" }
         },
         {
           "@type": "Project",
           "name": "PurrOS",
           "description": "Optimization package for operating systems, currently in development phase.",
-          "creator": { "@id": "https://nikodemboryczka.pl/#person" }
+          "creator": { "@id": "https://t91a60.github.io/NikodemBoryczka/#person" }
         },
         {
           "@type": "Organization",
-          "@id": "https://nikodemboryczka.pl/#mdp",
+          "@id": "https://t91a60.github.io/NikodemBoryczka/#mdp",
           "name": "Młodzieżowa Drużyna Pożarnicza (MDP)",
           "member": {
             "@type": "OrganizationRole",
-            "member": { "@id": "https://nikodemboryczka.pl/#person" },
+            "member": { "@id": "https://t91a60.github.io/NikodemBoryczka/#person" },
             "roleName": "Zastępca Dowódcy"
           }
         },
@@ -108,7 +110,7 @@
             "addressRegion": "Śląsk",
             "addressCountry": "PL"
           },
-          "alumni": { "@id": "https://nikodemboryczka.pl/#person" }
+          "alumni": { "@id": "https://t91a60.github.io/NikodemBoryczka/#person" }
         }
       ]
     }
@@ -119,7 +121,7 @@
     <div class="bg-glow-2"></div>
 
     <header class="glass">
-        <nav>
+        <nav role="navigation">
             <a href="index.html" class="logo">NB</a>
             <div class="nav-links" id="nav-links">
                 <a href="about.html">O mnie</a>
@@ -134,7 +136,7 @@
     </header>
 
     <main>
-        <section class="hero">
+        <section class="hero fade-in">
             <div class="hero-text">
                 <span class="hero-badge">Available for Internship</span>
                 <h1>Cześć, jestem <span class="gradient-text">Nikodem Boryczka</span></h1>
@@ -148,12 +150,19 @@
                     <a href="https://www.linkedin.com/in/nikodem-boryczka-6a7b5834a" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">LinkedIn</a>
                 </div>
             </div>
+            <!-- Placeholder for future profile photo -->
+            <div class="hero-image" style="display: none;"></div>
         </section>
 
-        <section>
+        <section class="fade-in">
             <h2>Główne obszary</h2>
             <div class="grid">
-                <div class="card glass">
+                <div class="card glass" aria-label="Karta obszaru: AI & Backend">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                        </svg>
+                    </div>
                     <div class="card-title">AI & Backend</div>
                     <p>Architektura systemów, optymalizacja i wykorzystanie modeli uczenia maszynowego w aplikacjach.</p>
                     <div class="tag-list">
@@ -163,7 +172,12 @@
                         <span class="tag">SQLite</span>
                     </div>
                 </div>
-                <div class="card glass">
+                <div class="card glass" aria-label="Karta obszaru: Web Development">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                        </svg>
+                    </div>
                     <div class="card-title">Web Development</div>
                     <p>Nowoczesne, responsywne interfejsy (Mobile-First) i zaawansowane aplikacje webowe oraz PWA.</p>
                     <div class="tag-list">
@@ -173,7 +187,12 @@
                         <span class="tag">PWA</span>
                     </div>
                 </div>
-                <div class="card glass">
+                <div class="card glass" aria-label="Karta obszaru: Open Source">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                        </svg>
+                    </div>
                     <div class="card-title">Open Source</div>
                     <p>Aktywny rozwój publicznie dostępnych narzędzi. Uczestnik GitHub Developer Program.</p>
                     <div class="tag-list">
@@ -190,5 +209,6 @@
         <p>&copy; 2026 Nikodem Boryczka. All rights reserved.</p>
     </footer>
     <script src="js/nav.js" defer></script>
+    <script src="js/animations.js" defer></script>
 </body>
 </html>
