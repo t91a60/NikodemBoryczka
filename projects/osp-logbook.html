@@ -4,7 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OSP Logbook | Projekt | Nikodem Boryczka</title>
-    <meta name="description" content="OSP Logbook - nowoczesna, minimalistyczna aplikacja webowa typu self-hosted stworzona przez Nikodema Boryczkę.">
+    <meta name="description" content="OSP Logbook - nowoczesna aplikacja webowa self-hosted (Python, Flask, SQLite) stworzona przez Nikodema Boryczkę dla Ochotniczej Straży Pożarnej.">
+    <meta name="theme-color" content="#6366f1">
+    <link rel="canonical" href="https://nikodemboryczka.pl/projects/osp-logbook.html">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta property="og:image" content="https://nikodemboryczka.pl/img/og-image.png">
     <link rel="stylesheet" href="../css/style.css">
     <script type="application/ld+json">
     {
@@ -28,12 +35,15 @@
     <header class="glass">
         <nav>
             <a href="../index.html" class="logo">NB</a>
-            <div class="nav-links">
+            <div class="nav-links" id="nav-links">
                 <a href="../about.html">O mnie</a>
                 <a href="index.html" style="color: var(--primary);">Projekty</a>
                 <a href="../resume.html">Resume</a>
                 <a href="../faq.html">FAQ</a>
             </div>
+            <button class="nav-hamburger" id="nav-hamburger" aria-label="Otwórz menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
         </nav>
     </header>
 
@@ -57,7 +67,7 @@
                 <p>Jako Zastępca Dowódcy w MDP, zauważyłem potrzebę cyfryzacji procesów w jednostkach strażackich, które często bazują na papierowych rozwiązaniach. OSP Logbook zapewnia bezpieczeństwo danych (self-hosted) i szybkość działania na urządzeniach mobilnych.</p>
 
                 <div class="action-group" style="margin-top: 3rem;">
-                    <a href="https://github.com/t91a60/osp-logbook" class="btn btn-primary" target="_blank">Zobacz kod na GitHub</a>
+                    <a href="https://github.com/t91a60/osp-logbook" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Zobacz kod na GitHub</a>
                 </div>
             </div>
         </section>
@@ -66,5 +76,6 @@
     <footer>
         <p>&copy; 2026 Nikodem Boryczka. All rights reserved.</p>
     </footer>
+    <script src="../js/nav.js" defer></script>
 </body>
 </html>

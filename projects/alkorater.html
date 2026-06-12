@@ -4,7 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AlkoRater | Projekt | Nikodem Boryczka</title>
-    <meta name="description" content="AlkoRater - Premium iOS PWA for rating and cataloging spirits. Projekt stworzony przez Nikodema Boryczkę.">
+    <meta name="description" content="AlkoRater - Premium iOS PWA do oceniania i katalogowania alkoholi. Hardware-accelerated UI, local-first privacy. Projekt Nikodema Boryczki.">
+    <meta name="theme-color" content="#6366f1">
+    <link rel="canonical" href="https://nikodemboryczka.pl/projects/alkorater.html">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta property="og:image" content="https://nikodemboryczka.pl/img/og-image.png">
     <link rel="stylesheet" href="../css/style.css">
     <script type="application/ld+json">
     {
@@ -29,12 +36,15 @@
     <header class="glass">
         <nav>
             <a href="../index.html" class="logo">NB</a>
-            <div class="nav-links">
+            <div class="nav-links" id="nav-links">
                 <a href="../about.html">O mnie</a>
                 <a href="index.html" style="color: var(--primary);">Projekty</a>
                 <a href="../resume.html">Resume</a>
                 <a href="../faq.html">FAQ</a>
             </div>
+            <button class="nav-hamburger" id="nav-hamburger" aria-label="Otwórz menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
         </nav>
     </header>
 
@@ -55,7 +65,7 @@
                 <p>Charakteryzuje się akcelerowanym sprzętowo interfejsem użytkownika (UI), który naśladuje natywną estetykę systemu iOS, dostarczając płynne i naturalne odczucia z użytkowania. W trosce o prywatność użytkowników zastosowano podejście "local-first" – dane przetwarzane są lokalnie na urządzeniu.</p>
 
                 <div class="action-group" style="margin-top: 3rem;">
-                    <a href="https://github.com/t91a60/AlkoRater" class="btn btn-primary" target="_blank">Zobacz kod na GitHub</a>
+                    <a href="https://github.com/t91a60/AlkoRater" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Zobacz kod na GitHub</a>
                 </div>
             </div>
         </section>
@@ -64,5 +74,6 @@
     <footer>
         <p>&copy; 2026 Nikodem Boryczka. All rights reserved.</p>
     </footer>
+    <script src="../js/nav.js" defer></script>
 </body>
 </html>

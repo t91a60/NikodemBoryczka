@@ -3,8 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projekty | Nikodem Boryczka</title>
-    <meta name="description" content="Portfolio projektów Nikodema Boryczki: OSP Logbook, PurrOS.">
+    <title>Projekty | Nikodem Boryczka – OSP Logbook, AlkoRater, PurrOS</title>
+    <meta name="description" content="Portfolio projektów Nikodema Boryczki: OSP Logbook (Flask/SQLite), AlkoRater (iOS PWA), PurrOS (OS optimization).">
+    <meta name="theme-color" content="#6366f1">
+    <link rel="canonical" href="https://nikodemboryczka.pl/projects/">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Projekty | Nikodem Boryczka">
+    <meta property="og:description" content="OSP Logbook, AlkoRater, PurrOS – projekty open-source Nikodema Boryczki.">
+    <meta property="og:image" content="https://nikodemboryczka.pl/img/og-image.png">
+    <meta property="og:url" content="https://nikodemboryczka.pl/projects/">
+
     <link rel="stylesheet" href="../css/style.css">
     <script src="../js/github-api.js" defer></script>
 </head>
@@ -15,12 +30,15 @@
     <header class="glass">
         <nav>
             <a href="../index.html" class="logo">NB</a>
-            <div class="nav-links">
+            <div class="nav-links" id="nav-links">
                 <a href="../about.html">O mnie</a>
                 <a href="index.html" style="color: var(--primary);">Projekty</a>
                 <a href="../resume.html">Resume</a>
                 <a href="../faq.html">FAQ</a>
             </div>
+            <button class="nav-hamburger" id="nav-hamburger" aria-label="Otwórz menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
         </nav>
     </header>
 
@@ -28,13 +46,13 @@
         <section class="hero" style="min-height: auto; padding-top: 2rem;">
             <div class="hero-text">
                 <h1>Moje Projekty</h1>
-                <p>Jako Open Source Developer kładę duży nacisk na tworzenie publicznie dostępnego oprogramowania, które rozwiązuje realne problemy.</p>
-                
+                <p>Jako Open Source Developer tworzę oprogramowanie rozwiązujące realne problemy. Każdy projekt jest dostępny publicznie na <a href="https://github.com/t91a60" target="_blank" rel="noopener noreferrer" style="color: var(--primary);">GitHub (t91a60)</a>.</p>
+
                 <div class="grid">
                     <a href="osp-logbook.html" style="text-decoration: none;">
                         <div class="card glass">
                             <div class="card-title">OSP Logbook</div>
-                            <p>Samoobsługowa aplikacja webowa do ewidencji dla Ochotniczej Straży Pożarnej.</p>
+                            <p>Samoobsługowa aplikacja webowa (Mobile-First) do ewidencji dla Ochotniczej Straży Pożarnej.</p>
                             <div class="tag-list">
                                 <span class="tag">Python</span>
                                 <span class="tag">Flask</span>
@@ -48,7 +66,7 @@
                     <a href="alkorater.html" style="text-decoration: none;">
                         <div class="card glass">
                             <div class="card-title">AlkoRater</div>
-                            <p>Premium iOS PWA do oceniania i katalogowania alkoholi (Local-first, native aesthetics).</p>
+                            <p>Premium iOS PWA do oceniania i katalogowania alkoholi. Local-first, native iOS aesthetics.</p>
                             <div class="tag-list">
                                 <span class="tag">PWA</span>
                                 <span class="tag">iOS Design</span>
@@ -62,9 +80,9 @@
                     <a href="purros.html" style="text-decoration: none;">
                         <div class="card glass">
                             <div class="card-title">PurrOS</div>
-                            <p>Innowacyjna paczka optymalizacyjna dla systemów operacyjnych.</p>
+                            <p>Innowacyjna paczka optymalizacyjna dla systemów operacyjnych. Wysoki potencjał – w fazie dev.</p>
                             <div class="tag-list">
-                                <span class="tag">System Optimization</span>
+                                <span class="tag">OS Optimization</span>
                                 <span class="tag">W Fazie Dev</span>
                                 <span class="tag github-stars-purros" style="display:none; background:rgba(255,193,7,0.15); color:#ffc107; border:1px solid rgba(255,193,7,0.3);"></span>
                             </div>
@@ -78,5 +96,6 @@
     <footer>
         <p>&copy; 2026 Nikodem Boryczka. All rights reserved.</p>
     </footer>
+    <script src="../js/nav.js" defer></script>
 </body>
 </html>

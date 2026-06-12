@@ -3,8 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resume & CV | Nikodem Boryczka</title>
-    <meta name="description" content="Curriculum Vitae: Nikodem Boryczka. AI Developer, edukacja, technologie, projekty. Poszukuję stażu (Internship).">
+    <title>Resume & CV | Nikodem Boryczka – AI Developer</title>
+    <meta name="description" content="CV Nikodema Boryczki: AI Developer, edukacja technik programista AI, projekty open-source (OSP Logbook, AlkoRater, PurrOS). Poszukuję stażu (Internship).">
+    <meta name="theme-color" content="#6366f1">
+    <link rel="canonical" href="https://nikodemboryczka.pl/resume.html">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Resume | Nikodem Boryczka – AI Developer">
+    <meta property="og:description" content="CV: Python, JavaScript, Flask, AI. Projekty open-source. Poszukuję stażu.">
+    <meta property="og:image" content="https://nikodemboryczka.pl/img/og-image.png">
+    <meta property="og:url" content="https://nikodemboryczka.pl/resume.html">
+
     <link rel="stylesheet" href="css/style.css">
     <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
     <script src="js/github-api.js" defer></script>
@@ -15,12 +30,15 @@
     <header class="glass">
         <nav>
             <a href="index.html" class="logo">NB</a>
-            <div class="nav-links">
+            <div class="nav-links" id="nav-links">
                 <a href="about.html">O mnie</a>
                 <a href="projects/index.html">Projekty</a>
                 <a href="resume.html" style="color: var(--primary);">Resume</a>
                 <a href="faq.html">FAQ</a>
             </div>
+            <button class="nav-hamburger" id="nav-hamburger" aria-label="Otwórz menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
         </nav>
     </header>
 
@@ -28,16 +46,16 @@
         <section class="hero" style="min-height: auto; padding-top: 2rem;">
             <div class="hero-text">
                 <h1>Resume</h1>
-                <p>AI Developer / Junior Software Developer</p>
+                <p>AI Developer / Junior Software Developer – Tychy, Śląsk, Polska</p>
                 <div class="action-group" style="margin-top: 1rem;">
-                    <a href="mailto:kontakt@nikodemboryczka.pl" class="btn btn-primary">Napisz do mnie</a>
-                    <a href="https://www.linkedin.com/in/nikodem-boryczka-6a7b5834a" class="btn btn-secondary" target="_blank">Odwiedź LinkedIn</a>
+                    <a href="https://www.linkedin.com/in/nikodem-boryczka-6a7b5834a" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Odwiedź LinkedIn</a>
+                    <a href="https://github.com/t91a60" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">GitHub</a>
                 </div>
             </div>
-            
+
             <div class="badge-container" style="margin-top: 2rem;">
                 <div class="badge-base LI-profile-badge" data-locale="pl_PL" data-size="medium" data-theme="dark" data-type="VERTICAL" data-vanity="nikodem-boryczka-6a7b5834a" data-version="v1">
-                  <a class="badge-base__link LI-simple-link" href="https://www.linkedin.com/in/nikodem-boryczka-6a7b5834a?trk=profile-badge">Nikodem Boryczka na LinkedIn</a>
+                    <a class="badge-base__link LI-simple-link" href="https://www.linkedin.com/in/nikodem-boryczka-6a7b5834a?trk=profile-badge" target="_blank" rel="noopener noreferrer">Nikodem Boryczka na LinkedIn</a>
                 </div>
             </div>
         </section>
@@ -45,9 +63,9 @@
         <section class="resume-section">
             <h2>Edukacja</h2>
             <div class="timeline-item">
-                <h3>Technik Programista (Specjalizacja: Artificial Intelligence)</h3>
+                <h3>Technik Programista – Specjalizacja: Artificial Intelligence</h3>
                 <p><strong>Zespół Szkół w Tychach</strong> | Obecnie</p>
-                <p>Zdobywanie wiedzy z zakresu algorytmiki, programowania obiektowego, projektowania baz danych oraz implementacji rozwiązań opartych na Sztucznej Inteligencji.</p>
+                <p>Algorytmika, programowanie obiektowe, projektowanie baz danych oraz implementacja rozwiązań opartych na Sztucznej Inteligencji.</p>
             </div>
         </section>
 
@@ -56,7 +74,7 @@
             <div class="grid">
                 <div class="card glass">
                     <div class="card-title">Języki & Frameworki</div>
-                    <ul style="color: var(--text-muted); margin-left: 1.5rem; margin-top: 1rem;">
+                    <ul style="color: var(--text-muted); margin-left: 1.5rem; margin-top: 1rem; line-height: 2;">
                         <li>Python (Flask)</li>
                         <li>JavaScript</li>
                         <li>HTML5 & CSS3</li>
@@ -65,37 +83,40 @@
                 </div>
                 <div class="card glass">
                     <div class="card-title">Narzędzia & Inne</div>
-                    <ul style="color: var(--text-muted); margin-left: 1.5rem; margin-top: 1rem;">
-                        <li>Bazy Danych (SQLite)</li>
-                        <li>Git / GitHub</li>
+                    <ul style="color: var(--text-muted); margin-left: 1.5rem; margin-top: 1rem; line-height: 2;">
+                        <li>SQLite / Bazy Danych</li>
+                        <li>Git / GitHub / CI-CD</li>
                         <li>AI Tools & Prompt Engineering</li>
                         <li>Linux / OS Optimization</li>
+                        <li>PWA / iOS Design</li>
                     </ul>
                 </div>
             </div>
         </section>
 
         <section class="resume-section" style="margin-top: 3rem;">
-            <h2>Najważniejsze Projekty</h2>
+            <h2>Projekty Open Source</h2>
             <div class="timeline-item">
                 <h3>OSP Logbook <span class="tag github-stars-osp-logbook" style="display:none; background:rgba(255,193,7,0.15); color:#ffc107; font-size: 0.8rem; margin-left: 0.5rem;"></span></h3>
-                <p>Aplikacja self-hosted (Python, Flask, SQLite) dla jednostek straży pożarnej do rejestracji działań ratowniczych i paliwa.</p>
+                <p>Samoobsługowa aplikacja webowa (Python, Flask, SQLite) – Mobile-First – dla jednostek straży pożarnej. Ewidencja wyjazdów ratowniczych, tankowań i serwisu sprzętu.</p>
+                <a href="https://github.com/t91a60/osp-logbook" target="_blank" rel="noopener noreferrer" style="color: var(--primary); font-size: 0.9rem;">github.com/t91a60/osp-logbook</a>
             </div>
             <div class="timeline-item">
                 <h3>AlkoRater <span class="tag github-stars-alkorater" style="display:none; background:rgba(255,193,7,0.15); color:#ffc107; font-size: 0.8rem; margin-left: 0.5rem;"></span></h3>
-                <p>Premium iOS PWA (Progressive Web App) do oceniania i katalogowania alkoholi. Zbudowana z wykorzystaniem akcelerowanego sprzętowo UI oraz podejścia local-first (prywatność).</p>
+                <p>Premium iOS PWA do oceniania i katalogowania alkoholi. Hardware-accelerated UI, native iOS aesthetics, local-first privacy.</p>
+                <a href="https://github.com/t91a60/AlkoRater" target="_blank" rel="noopener noreferrer" style="color: var(--primary); font-size: 0.9rem;">github.com/t91a60/AlkoRater</a>
             </div>
             <div class="timeline-item">
                 <h3>PurrOS <span class="tag github-stars-purros" style="display:none; background:rgba(255,193,7,0.15); color:#ffc107; font-size: 0.8rem; margin-left: 0.5rem;"></span></h3>
-                <p>Rozbudowana paczka optymalizacyjna dla systemów operacyjnych. W fazie badawczo-rozwojowej.</p>
+                <p>Paczka optymalizacyjna dla systemów operacyjnych. W fazie badawczo-rozwojowej.</p>
             </div>
         </section>
-        
+
         <section class="resume-section">
             <h2>Działalność Dodatkowa</h2>
             <div class="timeline-item">
-                <h3>Zastępca Dowódcy | Młodzieżowa Drużyna Pożarnicza (MDP)</h3>
-                <p>Zarządzanie zespołem, szkolenie młodzieży, kształtowanie postaw liderskich i obywatelskich.</p>
+                <h3>Zastępca Dowódcy | Młodzieżowa Drużyna Pożarnicza (MDP/OSP)</h3>
+                <p>Zarządzanie zespołem, szkolenie młodzieży, działanie w sytuacjach kryzysowych. Kształtowanie postaw liderskich i odpowiedzialności obywatelskiej.</p>
             </div>
         </section>
 
@@ -104,5 +125,6 @@
     <footer>
         <p>&copy; 2026 Nikodem Boryczka. All rights reserved.</p>
     </footer>
+    <script src="js/nav.js" defer></script>
 </body>
 </html>

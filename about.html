@@ -3,9 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>O mnie | Nikodem Boryczka</title>
-    <meta name="description" content="Poznaj Nikodema Boryczkę - AI Developera, twórcę oprogramowania i pasjonata technologii.">
+    <title>O mnie | Nikodem Boryczka – AI Developer z Tychów</title>
+    <meta name="description" content="Poznaj Nikodema Boryczkę – AI Developera, twórcę oprogramowania open-source i Zastępcę Dowódcy MDP ze Śląska.">
+    <meta name="theme-color" content="#6366f1">
+    <link rel="canonical" href="https://nikodemboryczka.pl/about.html">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="O mnie | Nikodem Boryczka">
+    <meta property="og:description" content="AI Developer i twórca open-source z Tychów, Śląsk.">
+    <meta property="og:image" content="https://nikodemboryczka.pl/img/og-image.png">
+    <meta property="og:url" content="https://nikodemboryczka.pl/about.html">
+
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- Schema.org Person (reference) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "@id": "https://nikodemboryczka.pl/#person",
+      "name": "Nikodem Boryczka",
+      "alternateName": ["Borys", "t91a60"],
+      "jobTitle": "AI Developer",
+      "url": "https://nikodemboryczka.pl/about.html",
+      "description": "Nikodem Boryczka to AI Developer i Junior Software Developer z Tychów (Śląsk, Polska). Twórca OSP Logbook i AlkoRater. Zastępca Dowódcy w MDP. Szuka stażu w AI i Software Development.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Tychy",
+        "addressRegion": "Śląsk",
+        "addressCountry": "PL"
+      }
+    }
+    </script>
 </head>
 <body>
     <div class="bg-glow"></div>
@@ -14,12 +49,15 @@
     <header class="glass">
         <nav>
             <a href="index.html" class="logo">NB</a>
-            <div class="nav-links">
-                <a href="about.html">O mnie</a>
+            <div class="nav-links" id="nav-links">
+                <a href="about.html" style="color: var(--primary);">O mnie</a>
                 <a href="projects/index.html">Projekty</a>
                 <a href="resume.html">Resume</a>
                 <a href="faq.html">FAQ</a>
             </div>
+            <button class="nav-hamburger" id="nav-hamburger" aria-label="Otwórz menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
         </nav>
     </header>
 
@@ -27,20 +65,20 @@
         <section class="hero" style="min-height: auto; padding-top: 2rem;">
             <div class="hero-text">
                 <h1>O mnie</h1>
-                <h2>Kim jestem?</h2>
-                <p>Nazywam się Nikodem Boryczka (w sieci często jako <strong>Borys</strong> lub <strong>t91a60</strong>). Jestem młodym programistą z Polski, zafascynowanym potencjałem sztucznej inteligencji oraz optymalizacją systemów.</p>
-                <p>Aktualnie kształcę się na kierunku <strong>Technik Programista ze specjalizacją w sztucznej inteligencji</strong> w Tychach (woj. śląskie). Moją misją jest tworzenie technologii, która nie tylko działa, ale rozwiązuje rzeczywiste, często niszowe problemy.</p>
-                
-                <h3 style="margin-top: 3rem;">Poza kodowaniem</h3>
-                <p>Wierzę w siłę nauki i dyscypliny. Poza spędzaniem czasu przed monitorem:</p>
+                <h2>Kim jest Nikodem Boryczka?</h2>
+                <p>Nazywam się Nikodem Boryczka (w sieci jako <strong>Borys</strong> lub <strong>t91a60</strong>). Jestem AI Developerem i Junior Software Developerem z Polski, zafascynowanym potencjałem sztucznej inteligencji oraz optymalizacją systemów.</p>
+                <p>Kształcę się na kierunku <strong>Technik Programista ze specjalizacją w sztucznej inteligencji</strong> w Tychach (woj. śląskie). Tworzę oprogramowanie open-source, które rozwiązuje realne problemy – m.in. aplikację <strong>OSP Logbook</strong> dla straży pożarnej i <strong>AlkoRater</strong> – premium iOS PWA.</p>
+
+                <h2 style="margin-top: 3rem;">Poza kodowaniem</h2>
+                <p>Wierzę w siłę nauki, dyscypliny i działania na rzecz społeczności:</p>
                 <div class="grid" style="margin-top: 1rem;">
                     <div class="card glass">
-                        <div class="card-title">🚒 Straż Pożarna (OSP)</div>
-                        <p>Z dumą pełnię funkcję Zastępcy Dowódcy w Młodzieżowej Drużynie Pożarniczej (MDP). Uczy mnie to odpowiedzialności, pracy zespołowej i działania w sytuacjach stresowych.</p>
+                        <div class="card-title">🚒 Straż Pożarna (MDP/OSP)</div>
+                        <p>Z dumą pełnię funkcję Zastępcy Dowódcy w Młodzieżowej Drużynie Pożarniczej. Uczy mnie to odpowiedzialności, pracy zespołowej i działania pod presją.</p>
                     </div>
                     <div class="card glass">
-                        <div class="card-title">⚙️ Mechanika</div>
-                        <p>Hobbystycznie zajmuję się naprawą pojazdów mechanicznych. Lubię rozumieć, jak rzeczy działają pod maską – zarówno w kodzie, jak i w silniku.</p>
+                        <div class="card-title">⚙️ Mechanika Pojazdowa</div>
+                        <p>Hobbystycznie zajmuję się naprawą pojazdów. Lubię rozumieć, jak rzeczy działają pod maską – zarówno w kodzie, jak i w silniku.</p>
                     </div>
                     <div class="card glass">
                         <div class="card-title">💪 Sport</div>
@@ -50,6 +88,7 @@
 
                 <div class="action-group" style="margin-top: 3rem;">
                     <a href="resume.html" class="btn btn-primary">Moje Doświadczenie (CV)</a>
+                    <a href="projects/index.html" class="btn btn-secondary">Moje Projekty</a>
                 </div>
             </div>
         </section>
@@ -58,5 +97,6 @@
     <footer>
         <p>&copy; 2026 Nikodem Boryczka. All rights reserved.</p>
     </footer>
+    <script src="js/nav.js" defer></script>
 </body>
 </html>

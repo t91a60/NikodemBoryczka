@@ -4,16 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nikodem Boryczka - AI Developer & Software Engineer</title>
-    <meta name="description" content="Nikodem Boryczka (Borys). AI Developer, Junior Software Developer, i twórca OSP Logbook. Dowiedz się więcej o moich projektach i umiejętnościach.">
-    <meta name="keywords" content="Nikodem Boryczka, Borys, t91a60, AI Developer, Junior Software Developer, Python, JavaScript, OSP Logbook, PurrOS">
+    <meta name="description" content="Nikodem Boryczka (Borys, t91a60) – AI Developer, Junior Software Developer i twórca open-source (OSP Logbook, AlkoRater). Dostępny na staż w obszarze AI i Software Development.">
+    <meta name="keywords" content="Nikodem Boryczka, Borys, t91a60, AI Developer, Junior Software Developer, Python, JavaScript, OSP Logbook, AlkoRater, PurrOS, Śląsk, Tychy">
     <meta name="author" content="Nikodem Boryczka">
+    <meta name="theme-color" content="#6366f1">
     <link rel="author" href="humans.txt">
+    <link rel="canonical" href="https://nikodemboryczka.pl/">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
-    <!-- Open Graph Data -->
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Open Graph -->
     <meta property="og:title" content="Nikodem Boryczka - AI Developer & Software Engineer">
     <meta property="og:type" content="profile">
     <meta property="og:url" content="https://nikodemboryczka.pl/">
-    <meta property="og:description" content="AI Developer i twórca rozwiązań open-source, m.in. OSP Logbook. Zobacz moje projekty.">
+    <meta property="og:description" content="AI Developer i twórca rozwiązań open-source: OSP Logbook, AlkoRater, PurrOS. Dostępny na internship.">
+    <meta property="og:image" content="https://nikodemboryczka.pl/img/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="pl_PL">
     <meta property="profile:first_name" content="Nikodem">
     <meta property="profile:last_name" content="Boryczka">
     <meta property="profile:username" content="t91a60">
@@ -21,11 +33,12 @@
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Nikodem Boryczka - AI Developer">
-    <meta name="twitter:description" content="AI Developer, Junior Software Developer, twórca OSP Logbook.">
-    
+    <meta name="twitter:description" content="AI Developer, Junior Software Developer, twórca OSP Logbook i AlkoRater.">
+    <meta name="twitter:image" content="https://nikodemboryczka.pl/img/og-image.png">
+
     <link rel="stylesheet" href="css/style.css">
-    
-    <!-- Structured Data (Schema.org) for Generative Engine Optimization -->
+
+    <!-- Schema.org GEO -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -36,35 +49,45 @@
           "name": "Nikodem Boryczka",
           "alternateName": ["Borys", "t91a60"],
           "jobTitle": "AI Developer",
-          "description": "Junior Software Developer specializing in AI and Open Source.",
+          "description": "Junior Software Developer specjalizujący się w AI i Open Source. Twórca OSP Logbook i AlkoRater.",
           "url": "https://nikodemboryczka.pl/",
+          "image": "https://nikodemboryczka.pl/img/og-image.png",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Tychy",
+            "addressRegion": "Śląsk",
+            "addressCountry": "PL"
+          },
           "sameAs": [
             "https://github.com/t91a60",
             "https://www.linkedin.com/in/nikodem-boryczka-6a7b5834a"
           ],
-          "knowsAbout": ["Python", "JavaScript", "HTML", "CSS", "Lua", "Artificial Intelligence", "Web Development"]
+          "knowsAbout": ["Python", "JavaScript", "HTML", "CSS", "Lua", "Artificial Intelligence", "Web Development", "PWA", "Flask", "SQLite"]
         },
         {
           "@type": "SoftwareSourceCode",
           "@id": "https://nikodemboryczka.pl/projects/osp-logbook#code",
           "name": "OSP Logbook",
           "programmingLanguage": ["Python", "HTML", "CSS", "JavaScript"],
-          "description": "Self-hosted web app for Volunteer Fire Departments (OSP).",
+          "description": "Self-hosted, mobile-first web app for Volunteer Fire Departments (OSP) built with Flask and SQLite.",
+          "codeRepository": "https://github.com/t91a60/osp-logbook",
           "author": { "@id": "https://nikodemboryczka.pl/#person" }
-        },
-        {
-          "@type": "Project",
-          "name": "PurrOS",
-          "description": "Optimization package for operating systems.",
-          "creator": { "@id": "https://nikodemboryczka.pl/#person" }
         },
         {
           "@type": "SoftwareApplication",
           "@id": "https://nikodemboryczka.pl/projects/alkorater#app",
           "name": "AlkoRater",
           "applicationCategory": "LifestyleApplication",
-          "description": "Premium iOS PWA for rating and cataloging spirits. Built with hardware-accelerated UI.",
+          "operatingSystem": "iOS",
+          "description": "Premium iOS PWA for rating and cataloging spirits. Hardware-accelerated UI with local-first privacy.",
+          "codeRepository": "https://github.com/t91a60/AlkoRater",
           "author": { "@id": "https://nikodemboryczka.pl/#person" }
+        },
+        {
+          "@type": "Project",
+          "name": "PurrOS",
+          "description": "Optimization package for operating systems, currently in development phase.",
+          "creator": { "@id": "https://nikodemboryczka.pl/#person" }
         },
         {
           "@type": "Organization",
@@ -78,7 +101,7 @@
         },
         {
           "@type": "EducationalOrganization",
-          "name": "Zespół Szkół (Technik Programista - AI)",
+          "name": "Technik Programista - Specjalizacja AI",
           "address": {
             "@type": "PostalAddress",
             "addressLocality": "Tychy",
@@ -90,7 +113,6 @@
       ]
     }
     </script>
-    <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
 </head>
 <body>
     <div class="bg-glow"></div>
@@ -99,12 +121,15 @@
     <header class="glass">
         <nav>
             <a href="index.html" class="logo">NB</a>
-            <div class="nav-links">
+            <div class="nav-links" id="nav-links">
                 <a href="about.html">O mnie</a>
                 <a href="projects/index.html">Projekty</a>
                 <a href="resume.html">Resume</a>
                 <a href="faq.html">FAQ</a>
             </div>
+            <button class="nav-hamburger" id="nav-hamburger" aria-label="Otwórz menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
         </nav>
     </header>
 
@@ -114,19 +139,19 @@
                 <span class="hero-badge">Available for Internship</span>
                 <h1>Cześć, jestem <span class="gradient-text">Nikodem Boryczka</span></h1>
                 <h2>AI Developer & Software Engineer</h2>
-                <p>Tworzę wydajne oprogramowanie i pasjonuję się sztuczną inteligencją. Rozwijam narzędzia open-source (m.in. OSP Logbook) i łączę świat kodu z realnymi rozwiązaniami.</p>
-                
+                <p>Tworzę wydajne oprogramowanie i pasjonuję się sztuczną inteligencją. Rozwijam narzędzia open-source (OSP Logbook, AlkoRater) i łączę świat kodu z realnymi rozwiązaniami. Pochodzę ze Śląska i jestem otwarty na pracę zdalną.</p>
+
                 <div class="action-group">
                     <a href="projects/index.html" class="btn btn-primary">Moje Projekty</a>
                     <a href="resume.html" class="btn btn-secondary">Zobacz CV</a>
-                    <a href="https://github.com/t91a60" class="btn btn-secondary" target="_blank">GitHub</a>
-                    <a href="https://www.linkedin.com/in/nikodem-boryczka-6a7b5834a" class="btn btn-secondary" target="_blank">LinkedIn</a>
+                    <a href="https://github.com/t91a60" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">GitHub</a>
+                    <a href="https://www.linkedin.com/in/nikodem-boryczka-6a7b5834a" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">LinkedIn</a>
                 </div>
             </div>
         </section>
 
         <section>
-            <h3>Główne obszary</h3>
+            <h2>Główne obszary</h2>
             <div class="grid">
                 <div class="card glass">
                     <div class="card-title">AI & Backend</div>
@@ -140,16 +165,17 @@
                 </div>
                 <div class="card glass">
                     <div class="card-title">Web Development</div>
-                    <p>Nowoczesne, responsywne interfejsy (Mobile-First) i zaawansowane aplikacje webowe.</p>
+                    <p>Nowoczesne, responsywne interfejsy (Mobile-First) i zaawansowane aplikacje webowe oraz PWA.</p>
                     <div class="tag-list">
                         <span class="tag">JavaScript</span>
                         <span class="tag">HTML5</span>
                         <span class="tag">CSS3</span>
+                        <span class="tag">PWA</span>
                     </div>
                 </div>
                 <div class="card glass">
                     <div class="card-title">Open Source</div>
-                    <p>Aktywny rozwój narzędzi dostępnych publicznie. Integracja z GitHub Developer Program.</p>
+                    <p>Aktywny rozwój publicznie dostępnych narzędzi. Uczestnik GitHub Developer Program.</p>
                     <div class="tag-list">
                         <span class="tag">Git</span>
                         <span class="tag">Lua</span>
@@ -163,5 +189,6 @@
     <footer>
         <p>&copy; 2026 Nikodem Boryczka. All rights reserved.</p>
     </footer>
+    <script src="js/nav.js" defer></script>
 </body>
 </html>
