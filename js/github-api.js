@@ -18,13 +18,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 
                 starsElements.forEach(el => {
                     el.innerHTML = `⭐ ${data.stargazers_count}`;
-                    el.style.display = "inline-block";
+                    el.classList.add("visible");
                 });
                 
                 forksElements.forEach(el => {
                     if(data.forks_count > 0) {
                         el.innerHTML = `🍴 ${data.forks_count}`;
-                        el.style.display = "inline-block";
+                        el.classList.add("visible");
                     }
                 });
             })

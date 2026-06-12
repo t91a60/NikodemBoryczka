@@ -32,7 +32,24 @@ body {
   overflow-x: hidden;
 }
 
-/* Accessibility */
+/* Accessibility: skip-to-content */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  z-index: 10000;
+  padding: 0.75rem 1.5rem;
+  background: var(--primary);
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 0 0 8px 0;
+  transition: top 0.2s ease;
+}
+.skip-link:focus {
+  top: 0;
+}
+
 a:focus-visible,
 .btn:focus-visible,
 button:focus-visible {
@@ -373,28 +390,152 @@ details.faq-item[open] summary::after { transform: rotate(45deg); }
   margin-bottom: 0.5rem;
 }
 
-/* Background Glows */
-.bg-glow {
+/* Background Glows (via pseudo-elements to avoid empty divs) */
+body::before,
+body::after {
+  content: '';
   position: fixed;
+  border-radius: 50%;
+  z-index: -1;
+  pointer-events: none;
+}
+body::before {
   top: -20%;
   left: -10%;
   width: 600px;
   height: 600px;
   background: radial-gradient(circle, rgba(99,102,241,0.12) 0%, rgba(15,23,42,0) 70%);
-  border-radius: 50%;
-  z-index: -1;
-  pointer-events: none;
 }
-.bg-glow-2 {
-  position: fixed;
+body::after {
   bottom: -20%;
   right: -10%;
   width: 700px;
   height: 700px;
   background: radial-gradient(circle, rgba(34,211,238,0.08) 0%, rgba(15,23,42,0) 70%);
-  border-radius: 50%;
-  z-index: -1;
-  pointer-events: none;
+}
+
+/* ===== Utility Classes ===== */
+
+/* Active nav link */
+.nav-active {
+  color: var(--primary) !important;
+}
+
+/* Section spacing */
+.section-compact {
+  min-height: auto;
+  padding-top: 2rem;
+}
+
+.spacer-xs { margin-top: 0.5rem; }
+.spacer-sm { margin-top: 1rem; }
+.spacer-md { margin-top: 2rem; }
+.spacer-lg { margin-top: 3rem; }
+
+.spacer-bottom-sm { margin-bottom: 1rem; }
+.spacer-bottom-md { margin-bottom: 2rem; }
+
+/* Tag badges (GitHub stars/forks) */
+.tag-star {
+  display: none;
+  background: rgba(255,193,7,0.15);
+  color: #ffc107;
+  border: 1px solid rgba(255,193,7,0.3);
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
+}
+
+.tag-fork {
+  display: none;
+  background: rgba(100,116,139,0.2);
+  color: #cbd5e1;
+}
+
+.tag-star.visible,
+.tag-fork.visible {
+  display: inline-block;
+}
+
+/* No-decoration link (card wrappers) */
+.link-plain {
+  text-decoration: none;
+}
+
+/* Muted small link */
+.link-muted {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* Centered content */
+.flex-center {
+  justify-content: center;
+}
+
+/* Centered text */
+.text-center {
+  text-align: center;
+}
+
+/* Hero centered */
+.hero-center {
+  min-height: 50vh;
+  text-align: center;
+  justify-content: center;
+}
+
+/* Big display text */
+.display-large {
+  font-size: 6rem;
+  margin-bottom: 0;
+}
+
+.text-lead {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Badge container */
+.badge-section {
+  margin-top: 2rem;
+}
+
+/* Bullet list style (for resume cards) */
+.list-tech {
+  color: var(--text-muted);
+  margin-left: 1.5rem;
+  margin-top: 1rem;
+  line-height: 2;
+}
+
+/* GitHub repo link in resume */
+.link-repo {
+  color: var(--primary);
+  font-size: 0.9rem;
+}
+
+/* LinkedIn card badge */
+.badge-card {
+  padding: 1.5rem;
+  text-align: center;
+  max-width: 320px;
+}
+.badge-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+.badge-name {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+.badge-title {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+.badge-btn {
+  padding: 0.5rem 1.25rem;
+  font-size: 0.85rem;
 }
 
 /* Footer */

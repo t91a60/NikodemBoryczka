@@ -22,12 +22,11 @@
     <meta property="og:image" content="https://t91a60.github.io/NikodemBoryczka/img/og-image.png">
     <meta property="og:url" content="https://t91a60.github.io/NikodemBoryczka/resume.html">
 
-    <link rel="stylesheet" href="css/style.css">
-    <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
-    <script src="js/github-api.js" defer></script>
+    <link rel="stylesheet" href="css/style.min.css">
+    <script src="js/github-api.min.js" defer></script>
 </head>
 <body>
-    <div class="bg-glow"></div>
+    <a href="#main-content" class="skip-link">Przejdź do treści</a>
 
     <header class="glass">
         <nav role="navigation">
@@ -35,7 +34,7 @@
             <div class="nav-links" id="nav-links">
                 <a href="about.html">O mnie</a>
                 <a href="projects/index.html">Projekty</a>
-                <a href="resume.html" style="color: var(--primary);">Resume</a>
+                <a href="resume.html" class="nav-active">Resume</a>
                 <a href="faq.html">FAQ</a>
             </div>
             <button class="nav-hamburger" id="nav-hamburger" aria-label="Otwórz menu" aria-expanded="false">
@@ -44,20 +43,25 @@
         </nav>
     </header>
 
-    <main>
-        <section class="hero fade-in" style="min-height: auto; padding-top: 2rem;">
+    <main id="main-content">
+        <section class="hero fade-in section-compact">
             <div class="hero-text">
                 <h1>Resume</h1>
                 <p>AI Developer / Junior Software Developer – Tychy, Śląsk, Polska</p>
-                <div class="action-group" style="margin-top: 1rem;">
+                <div class="action-group spacer-sm">
                     <a href="https://www.linkedin.com/in/nikodem-boryczka-6a7b5834a" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Odwiedź LinkedIn</a>
                     <a href="https://github.com/t91a60" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">GitHub</a>
                 </div>
             </div>
 
-            <div class="badge-container" style="margin-top: 2rem;">
-                <div class="badge-base LI-profile-badge" data-locale="pl_PL" data-size="medium" data-theme="dark" data-type="VERTICAL" data-vanity="nikodem-boryczka-6a7b5834a" data-version="v1">
-                    <a class="badge-base__link LI-simple-link" href="https://www.linkedin.com/in/nikodem-boryczka-6a7b5834a?trk=profile-badge" target="_blank" rel="noopener noreferrer">Nikodem Boryczka na LinkedIn</a>
+            <div class="badge-container badge-section">
+                <div class="card glass badge-card">
+                    <div class="badge-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#0a66c2" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </div>
+                    <div class="badge-name">Nikodem Boryczka</div>
+                    <div class="badge-title">AI Developer @ Tychy, Śląsk</div>
+                    <a href="https://www.linkedin.com/in/nikodem-boryczka-6a7b5834a" class="btn btn-primary badge-btn" target="_blank" rel="noopener noreferrer">Odwiedź profil</a>
                 </div>
             </div>
         </section>
@@ -76,7 +80,7 @@
             <div class="grid">
                 <div class="card glass">
                     <div class="card-title">Języki & Frameworki</div>
-                    <ul style="color: var(--text-muted); margin-left: 1.5rem; margin-top: 1rem; line-height: 2;">
+                    <ul class="list-tech">
                         <li>Python (Flask)</li>
                         <li>JavaScript</li>
                         <li>HTML5 & CSS3</li>
@@ -85,7 +89,7 @@
                 </div>
                 <div class="card glass">
                     <div class="card-title">Narzędzia & Inne</div>
-                    <ul style="color: var(--text-muted); margin-left: 1.5rem; margin-top: 1rem; line-height: 2;">
+                    <ul class="list-tech">
                         <li>SQLite / Bazy Danych</li>
                         <li>Git / GitHub / CI-CD</li>
                         <li>AI Tools & Prompt Engineering</li>
@@ -96,20 +100,20 @@
             </div>
         </section>
 
-        <section class="resume-section fade-in" style="margin-top: 3rem;">
+        <section class="resume-section fade-in spacer-lg">
             <h2>Projekty Open Source</h2>
             <div class="timeline-item">
-                <h3>OSP Logbook <span class="tag github-stars-osp-logbook" style="display:none; background:rgba(255,193,7,0.15); color:#ffc107; font-size: 0.8rem; margin-left: 0.5rem;"></span></h3>
+                <h3>OSP Logbook <span class="tag github-stars-osp-logbook tag-star"></span></h3>
                 <p>Samoobsługowa aplikacja webowa (Python, Flask, SQLite) – Mobile-First – dla jednostek straży pożarnej. Ewidencja wyjazdów ratowniczych, tankowań i serwisu sprzętu.</p>
-                <a href="https://github.com/t91a60/osp-logbook" target="_blank" rel="noopener noreferrer" style="color: var(--primary); font-size: 0.9rem;">github.com/t91a60/osp-logbook</a>
+                <a href="https://github.com/t91a60/osp-logbook" target="_blank" rel="noopener noreferrer" class="link-repo">github.com/t91a60/osp-logbook</a>
             </div>
             <div class="timeline-item">
-                <h3>AlkoRater <span class="tag github-stars-alkorater" style="display:none; background:rgba(255,193,7,0.15); color:#ffc107; font-size: 0.8rem; margin-left: 0.5rem;"></span></h3>
+                <h3>AlkoRater <span class="tag github-stars-alkorater tag-star"></span></h3>
                 <p>Premium iOS PWA do oceniania i katalogowania alkoholi. Hardware-accelerated UI, native iOS aesthetics, local-first privacy.</p>
-                <a href="https://github.com/t91a60/AlkoRater" target="_blank" rel="noopener noreferrer" style="color: var(--primary); font-size: 0.9rem;">github.com/t91a60/AlkoRater</a>
+                <a href="https://github.com/t91a60/AlkoRater" target="_blank" rel="noopener noreferrer" class="link-repo">github.com/t91a60/AlkoRater</a>
             </div>
             <div class="timeline-item">
-                <h3>PurrOS <span class="tag github-stars-purros" style="display:none; background:rgba(255,193,7,0.15); color:#ffc107; font-size: 0.8rem; margin-left: 0.5rem;"></span></h3>
+                <h3>PurrOS <span class="tag github-stars-purros tag-star"></span></h3>
                 <p>Paczka optymalizacyjna dla systemów operacyjnych. W fazie badawczo-rozwojowej.</p>
             </div>
         </section>
@@ -127,7 +131,7 @@
     <footer>
         <p>&copy; 2026 Nikodem Boryczka. All rights reserved.</p>
     </footer>
-    <script src="js/nav.js" defer></script>
-    <script src="js/animations.js" defer></script>
+    <script src="js/nav.min.js" defer></script>
+    <script src="js/animations.min.js" defer></script>
 </body>
 </html>

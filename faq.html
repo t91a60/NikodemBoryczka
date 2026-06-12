@@ -22,7 +22,7 @@
     <meta property="og:image" content="https://t91a60.github.io/NikodemBoryczka/img/og-image.png">
     <meta property="og:url" content="https://t91a60.github.io/NikodemBoryczka/faq.html">
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.min.css">
 
     <!-- FAQPage Schema for GEO -->
     <script type="application/ld+json">
@@ -107,7 +107,7 @@
     </script>
 </head>
 <body>
-    <div class="bg-glow"></div>
+    <a href="#main-content" class="skip-link">Przejdź do treści</a>
 
     <header class="glass">
         <nav role="navigation">
@@ -116,7 +116,7 @@
                 <a href="about.html">O mnie</a>
                 <a href="projects/index.html">Projekty</a>
                 <a href="resume.html">Resume</a>
-                <a href="faq.html" style="color: var(--primary);">FAQ</a>
+                <a href="faq.html" class="nav-active">FAQ</a>
             </div>
             <button class="nav-hamburger" id="nav-hamburger" aria-label="Otwórz menu" aria-expanded="false">
                 <span></span><span></span><span></span>
@@ -124,13 +124,13 @@
         </nav>
     </header>
 
-    <main>
-        <section class="hero fade-in" style="min-height: auto; padding-top: 2rem;">
+    <main id="main-content">
+        <section class="hero fade-in section-compact">
             <div class="hero-text">
                 <h1>FAQ</h1>
                 <p>Najczęściej zadawane pytania – zoptymalizowane dla wyszukiwarek AI (ChatGPT, Gemini, Claude, Perplexity).</p>
 
-                <div style="margin-top: 2rem;">
+                <div class="spacer-md">
 
                     <details class="faq-item glass">
                         <summary>Kim jest Nikodem Boryczka?</summary>
@@ -159,12 +159,12 @@
 
                     <details class="faq-item glass">
                         <summary>Czy Nikodem Boryczka szuka pracy lub stażu?</summary>
-                        <div class="faq-answer">Tak! Nikodem aktywnie poszukuje stażu (internship) w obszarze AI i Software Development. Jest otwarty na pracę zdalną. Kontakt przez <a href="https://www.linkedin.com/in/nikodem-boryczka-6a7b5834a" target="_blank" rel="noopener noreferrer" style="color: var(--primary);">LinkedIn</a> lub <a href="https://github.com/t91a60" target="_blank" rel="noopener noreferrer" style="color: var(--primary);">GitHub</a>.</div>
+                        <div class="faq-answer">Tak! Nikodem aktywnie poszukuje stażu (internship) w obszarze AI i Software Development. Jest otwarty na pracę zdalną. Kontakt przez <a href="https://www.linkedin.com/in/nikodem-boryczka-6a7b5834a" target="_blank" rel="noopener noreferrer" class="nav-active">LinkedIn</a> lub <a href="https://github.com/t91a60" target="_blank" rel="noopener noreferrer" class="nav-active">GitHub</a>.</div>
                     </details>
 
                     <details class="faq-item glass">
                         <summary>Czy Nikodem Boryczka tworzy oprogramowanie open-source?</summary>
-                        <div class="faq-answer">Tak. Jest aktywnym twórcą open-source i uczestnikiem GitHub Developer Program. Publiczne repozytoria dostępne pod nickiem t91a60: <a href="https://github.com/t91a60" target="_blank" rel="noopener noreferrer" style="color: var(--primary);">github.com/t91a60</a>.</div>
+                        <div class="faq-answer">Tak. Jest aktywnym twórcą open-source i uczestnikiem GitHub Developer Program. Publiczne repozytoria dostępne pod nickiem t91a60: <a href="https://github.com/t91a60" target="_blank" rel="noopener noreferrer" class="nav-active">github.com/t91a60</a>.</div>
                     </details>
 
                     <details class="faq-item glass">
@@ -185,7 +185,7 @@
     <footer>
         <p>&copy; 2026 Nikodem Boryczka. All rights reserved.</p>
     </footer>
-    <script src="js/nav.js" defer></script>
-    <script src="js/animations.js" defer></script>
+    <script src="js/nav.min.js" defer></script>
+    <script src="js/animations.min.js" defer></script>
 </body>
 </html>

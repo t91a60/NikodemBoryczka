@@ -3,12 +3,12 @@
   <url>
     <loc>https://t91a60.github.io/NikodemBoryczka/</loc>
     <lastmod>2026-06-12</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://t91a60.github.io/NikodemBoryczka/about.html</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -20,7 +20,7 @@
   </url>
   <url>
     <loc>https://t91a60.github.io/NikodemBoryczka/faq.html</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -32,20 +32,26 @@
   </url>
   <url>
     <loc>https://t91a60.github.io/NikodemBoryczka/projects/osp-logbook.html</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-05-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://t91a60.github.io/NikodemBoryczka/projects/alkorater.html</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-04-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://t91a60.github.io/NikodemBoryczka/projects/purros.html</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-02-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://t91a60.github.io/NikodemBoryczka/404.html</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
 </urlset>

@@ -14,7 +14,7 @@
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" as="style">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <meta property="og:image" content="https://t91a60.github.io/NikodemBoryczka/img/og-image.png">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style.min.css">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -30,14 +30,14 @@
     </script>
 </head>
 <body>
-    <div class="bg-glow"></div>
+    <a href="#main-content" class="skip-link">Przejdź do treści</a>
 
     <header class="glass">
         <nav role="navigation">
             <a href="../index.html" class="logo">NB</a>
             <div class="nav-links" id="nav-links">
                 <a href="../about.html">O mnie</a>
-                <a href="index.html" style="color: var(--primary);">Projekty</a>
+                <a href="index.html" class="nav-active">Projekty</a>
                 <a href="../resume.html">Resume</a>
                 <a href="../faq.html">FAQ</a>
             </div>
@@ -47,12 +47,12 @@
         </nav>
     </header>
 
-    <main>
-        <section class="hero fade-in" style="min-height: auto; padding-top: 2rem;">
+    <main id="main-content">
+        <section class="hero fade-in section-compact">
             <div class="hero-text">
-                <a href="index.html" style="color: var(--text-muted); text-decoration: none;">&larr; Powrót do projektów</a>
-                <h1 style="margin-top: 1rem;">PurrOS</h1>
-                <div class="tag-list" style="margin-bottom: 2rem;">
+                <a href="index.html" class="link-muted">&larr; Powrót do projektów</a>
+                <h1 class="spacer-sm">PurrOS</h1>
+                <div class="tag-list spacer-bottom-md">
                     <span class="tag">OS Optimization</span>
                     <span class="tag">AI Research</span>
                 </div>
@@ -71,7 +71,7 @@
     <footer>
         <p>&copy; 2026 Nikodem Boryczka. All rights reserved.</p>
     </footer>
-    <script src="../js/nav.js" defer></script>
-    <script src="../js/animations.js" defer></script>
+    <script src="../js/nav.min.js" defer></script>
+    <script src="../js/animations.min.js" defer></script>
 </body>
 </html>

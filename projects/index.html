@@ -22,19 +22,18 @@
     <meta property="og:image" content="https://t91a60.github.io/NikodemBoryczka/img/og-image.png">
     <meta property="og:url" content="https://t91a60.github.io/NikodemBoryczka/projects/">
 
-    <link rel="stylesheet" href="../css/style.css">
-    <script src="../js/github-api.js" defer></script>
+    <link rel="stylesheet" href="../css/style.min.css">
+    <script src="../js/github-api.min.js" defer></script>
 </head>
 <body>
-    <div class="bg-glow"></div>
-    <div class="bg-glow-2"></div>
+    <a href="#main-content" class="skip-link">Przejdź do treści</a>
 
     <header class="glass">
         <nav role="navigation">
             <a href="../index.html" class="logo">NB</a>
             <div class="nav-links" id="nav-links">
                 <a href="../about.html">O mnie</a>
-                <a href="index.html" style="color: var(--primary);">Projekty</a>
+                <a href="index.html" class="nav-active">Projekty</a>
                 <a href="../resume.html">Resume</a>
                 <a href="../faq.html">FAQ</a>
             </div>
@@ -44,14 +43,14 @@
         </nav>
     </header>
 
-    <main>
-        <section class="hero fade-in" style="min-height: auto; padding-top: 2rem;">
+    <main id="main-content">
+        <section class="hero fade-in section-compact">
             <div class="hero-text">
                 <h1>Moje Projekty</h1>
-                <p>Jako Open Source Developer tworzę oprogramowanie rozwiązujące realne problemy. Każdy projekt jest dostępny publicznie na <a href="https://github.com/t91a60" target="_blank" rel="noopener noreferrer" style="color: var(--primary);">GitHub (t91a60)</a>.</p>
+                <p>Jako Open Source Developer tworzę oprogramowanie rozwiązujące realne problemy. Każdy projekt jest dostępny publicznie na <a href="https://github.com/t91a60" target="_blank" rel="noopener noreferrer" class="nav-active">GitHub (t91a60)</a>.</p>
 
                 <div class="grid">
-                    <a href="osp-logbook.html" style="text-decoration: none;">
+                    <a href="osp-logbook.html" class="link-plain">
                         <div class="card glass">
                             <div class="card-title">OSP Logbook</div>
                             <p>Samoobsługowa aplikacja webowa (Mobile-First) do ewidencji dla Ochotniczej Straży Pożarnej.</p>
@@ -59,13 +58,13 @@
                                 <span class="tag">Python</span>
                                 <span class="tag">Flask</span>
                                 <span class="tag">SQLite</span>
-                                <span class="tag github-stars-osp-logbook" style="display:none; background:rgba(255,193,7,0.15); color:#ffc107; border:1px solid rgba(255,193,7,0.3);"></span>
-                                <span class="tag github-forks-osp-logbook" style="display:none; background:rgba(100,116,139,0.2); color:#cbd5e1;"></span>
+                                <span class="tag github-stars-osp-logbook tag-star"></span>
+                                <span class="tag github-forks-osp-logbook tag-fork"></span>
                             </div>
                         </div>
                     </a>
 
-                    <a href="alkorater.html" style="text-decoration: none;">
+                    <a href="alkorater.html" class="link-plain">
                         <div class="card glass">
                             <div class="card-title">AlkoRater</div>
                             <p>Premium iOS PWA do oceniania i katalogowania alkoholi. Local-first, native iOS aesthetics.</p>
@@ -73,20 +72,20 @@
                                 <span class="tag">PWA</span>
                                 <span class="tag">iOS Design</span>
                                 <span class="tag">Local-first</span>
-                                <span class="tag github-stars-alkorater" style="display:none; background:rgba(255,193,7,0.15); color:#ffc107; border:1px solid rgba(255,193,7,0.3);"></span>
-                                <span class="tag github-forks-alkorater" style="display:none; background:rgba(100,116,139,0.2); color:#cbd5e1;"></span>
+                                <span class="tag github-stars-alkorater tag-star"></span>
+                                <span class="tag github-forks-alkorater tag-fork"></span>
                             </div>
                         </div>
                     </a>
 
-                    <a href="purros.html" style="text-decoration: none;">
+                    <a href="purros.html" class="link-plain">
                         <div class="card glass" aria-label="Projekt PurrOS">
                             <div class="card-title">PurrOS</div>
                             <p>Early Research Project – AI systems optimization.</p>
                             <div class="tag-list">
                                 <span class="tag">OS Optimization</span>
                                 <span class="tag">AI Research</span>
-                                <span class="tag github-stars-purros" style="display:none; background:rgba(255,193,7,0.15); color:#ffc107; border:1px solid rgba(255,193,7,0.3);"></span>
+                                <span class="tag github-stars-purros tag-star"></span>
                             </div>
                         </div>
                     </a>
@@ -98,7 +97,7 @@
     <footer>
         <p>&copy; 2026 Nikodem Boryczka. All rights reserved.</p>
     </footer>
-    <script src="../js/nav.js" defer></script>
-    <script src="../js/animations.js" defer></script>
+    <script src="../js/nav.min.js" defer></script>
+    <script src="../js/animations.min.js" defer></script>
 </body>
 </html>

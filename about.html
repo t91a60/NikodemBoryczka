@@ -22,7 +22,7 @@
     <meta property="og:image" content="https://t91a60.github.io/NikodemBoryczka/img/og-image.png">
     <meta property="og:url" content="https://t91a60.github.io/NikodemBoryczka/about.html">
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.min.css">
 
     <!-- Schema.org Person (reference) -->
     <script type="application/ld+json">
@@ -45,14 +45,13 @@
     </script>
 </head>
 <body>
-    <div class="bg-glow"></div>
-    <div class="bg-glow-2"></div>
+    <a href="#main-content" class="skip-link">Przejdź do treści</a>
 
     <header class="glass">
         <nav role="navigation">
             <a href="index.html" class="logo">NB</a>
             <div class="nav-links" id="nav-links">
-                <a href="about.html" style="color: var(--primary);">O mnie</a>
+                <a href="about.html" class="nav-active">O mnie</a>
                 <a href="projects/index.html">Projekty</a>
                 <a href="resume.html">Resume</a>
                 <a href="faq.html">FAQ</a>
@@ -63,17 +62,17 @@
         </nav>
     </header>
 
-    <main>
-        <section class="hero fade-in" style="min-height: auto; padding-top: 2rem;">
+    <main id="main-content">
+        <section class="hero fade-in section-compact">
             <div class="hero-text">
                 <h1>O mnie</h1>
                 <h2>Kim jest Nikodem Boryczka?</h2>
                 <p>Nazywam się Nikodem Boryczka (w sieci jako <strong>Borys</strong> lub <strong>t91a60</strong>). Jestem AI Developerem i Junior Software Developerem z Polski, zafascynowanym potencjałem sztucznej inteligencji oraz optymalizacją systemów.</p>
                 <p>Kształcę się na kierunku <strong>Technik Programista ze specjalizacją w sztucznej inteligencji</strong> w Tychach (woj. śląskie). Tworzę oprogramowanie open-source, które rozwiązuje realne problemy – m.in. aplikację <strong>OSP Logbook</strong> dla straży pożarnej i <strong>AlkoRater</strong> – premium iOS PWA.</p>
 
-                <h2 style="margin-top: 3rem;">Poza kodowaniem</h2>
+                <h2 class="spacer-lg">Poza kodowaniem</h2>
                 <p>Wierzę w siłę nauki, dyscypliny i działania na rzecz społeczności:</p>
-                <div class="grid" style="margin-top: 1rem;">
+                <div class="grid spacer-sm">
                     <div class="card glass">
                         <div class="card-title">🚒 Straż Pożarna (MDP/OSP)</div>
                         <p>Z dumą pełnię funkcję Zastępcy Dowódcy w Młodzieżowej Drużynie Pożarniczej. Uczy mnie to odpowiedzialności, pracy zespołowej i działania pod presją.</p>
@@ -88,7 +87,7 @@
                     </div>
                 </div>
 
-                <div class="action-group" style="margin-top: 3rem;">
+                <div class="action-group spacer-lg">
                     <a href="resume.html" class="btn btn-primary">Moje Doświadczenie (CV)</a>
                     <a href="projects/index.html" class="btn btn-secondary">Moje Projekty</a>
                 </div>
@@ -99,7 +98,7 @@
     <footer>
         <p>&copy; 2026 Nikodem Boryczka. All rights reserved.</p>
     </footer>
-    <script src="js/nav.js" defer></script>
-    <script src="js/animations.js" defer></script>
+    <script src="js/nav.min.js" defer></script>
+    <script src="js/animations.min.js" defer></script>
 </body>
 </html>

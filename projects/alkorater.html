@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <meta property="og:image" content="https://t91a60.github.io/NikodemBoryczka/img/og-image.png">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style.min.css">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -31,14 +31,14 @@
     </script>
 </head>
 <body>
-    <div class="bg-glow"></div>
+    <a href="#main-content" class="skip-link">Przejdź do treści</a>
 
     <header class="glass">
         <nav>
             <a href="../index.html" class="logo">NB</a>
             <div class="nav-links" id="nav-links">
                 <a href="../about.html">O mnie</a>
-                <a href="index.html" style="color: var(--primary);">Projekty</a>
+                <a href="index.html" class="nav-active">Projekty</a>
                 <a href="../resume.html">Resume</a>
                 <a href="../faq.html">FAQ</a>
             </div>
@@ -48,12 +48,12 @@
         </nav>
     </header>
 
-    <main>
-        <section class="hero" style="min-height: auto; padding-top: 2rem;">
+    <main id="main-content">
+        <section class="hero section-compact">
             <div class="hero-text">
-                <a href="index.html" style="color: var(--text-muted); text-decoration: none;">&larr; Powrót do projektów</a>
-                <h1 style="margin-top: 1rem;">AlkoRater</h1>
-                <div class="tag-list" style="margin-bottom: 2rem;">
+                <a href="index.html" class="link-muted">&larr; Powrót do projektów</a>
+                <h1 class="spacer-sm">AlkoRater</h1>
+                <div class="tag-list spacer-bottom-md">
                     <span class="tag">PWA</span>
                     <span class="tag">iOS Design</span>
                     <span class="tag">Local-first</span>
@@ -64,7 +64,7 @@
                 <p>AlkoRater to aplikacja typu Premium PWA (Progressive Web App) zoptymalizowana pod system iOS, służąca do oceniania i katalogowania alkoholi.</p>
                 <p>Charakteryzuje się akcelerowanym sprzętowo interfejsem użytkownika (UI), który naśladuje natywną estetykę systemu iOS, dostarczając płynne i naturalne odczucia z użytkowania. W trosce o prywatność użytkowników zastosowano podejście "local-first" – dane przetwarzane są lokalnie na urządzeniu.</p>
 
-                <div class="action-group" style="margin-top: 3rem;">
+                <div class="action-group spacer-lg">
                     <a href="https://github.com/t91a60/AlkoRater" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Zobacz kod na GitHub</a>
                 </div>
             </div>
@@ -74,6 +74,6 @@
     <footer>
         <p>&copy; 2026 Nikodem Boryczka. All rights reserved.</p>
     </footer>
-    <script src="../js/nav.js" defer></script>
+    <script src="../js/nav.min.js" defer></script>
 </body>
 </html>
