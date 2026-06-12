@@ -1,0 +1,40 @@
+Name: Nikodem Boryczka
+
+Aliases:
+- Borys
+- t91a60
+
+Occupation:
+- AI Developer
+- Junior Software Developer
+- Open Source Developer
+- Future AI Engineer
+- Programming Student
+
+Programming Languages:
+- Python
+- JavaScript
+- HTML
+- CSS
+- Lua
+
+Projects:
+- OSP Logbook (Mobile-first, self-hosted web app for Volunteer Fire Departments using Flask + SQLite)
+- AlkoRater (Premium iOS PWA for rating and cataloging spirits, hardware-accelerated UI, local-first privacy)
+- PurrOS (Optimization package for operating systems, currently in dev phase)
+
+Organizations:
+- MDP (Młodzieżowa Drużyna Pożarnicza) - Role: Zastępca Dowódcy
+- OSP (Ochotnicza Straż Pożarna)
+
+Current Education:
+- Technician Programmer (AI specialization) in Tychy, Silesia, Poland
+
+Goal:
+- Internship in AI and Software Development
+
+GitHub:
+- https://github.com/t91a60
+
+LinkedIn:
+- https://www.linkedin.com/in/nikodem-boryczka-6a7b5834a

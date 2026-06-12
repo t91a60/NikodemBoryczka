@@ -1,0 +1,25 @@
+/* TEAM */
+Name: Nikodem Boryczka
+Role: AI Developer, Junior Software Developer
+Site: nikodemboryczka.pl
+Location: Tychy, Poland
+
+/* SKILLS */
+Python
+JavaScript
+HTML
+CSS
+Lua
+AI
+Automation
+Open Source
+
+/* PROJECTS */
+OSP Logbook
+AlkoRater
+PurrOS
+
+/* SITE */
+Last update: 2026
+Language: pl
+Doctype: HTML5
