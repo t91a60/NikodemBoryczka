@@ -25,9 +25,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
-      - name: Debug dist contents
-        run: ls -la dist/ && ls -la dist/assets/
-      - name: Upload artifact
+      - uses: actions/upload-pages-artifact@v3
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
