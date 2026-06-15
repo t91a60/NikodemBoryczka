@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://t91a60.github.io/NikodemBoryczka/sitemap.xml
