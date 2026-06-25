@@ -5,6 +5,12 @@ import { parseAnsi } from '../lib/ansi.js'
 
 const cmdHistory = []
 
+const neofetchData = {
+  uptime: Math.floor(Math.random() * 999),
+  usedRam: Math.floor(Math.random() * 8 + 12),
+  totalRam: Math.floor(Math.random() * 4 + 28),
+}
+
 const bootLines = [
   { text: 'EFI boot: starting Ubuntu 24.04 LTS', color: '--color-text-dim', delay: 200 },
   { text: 'kernel: Linux 6.8.0-generic #1 SMP PREEMPT_DYNAMIC', color: '--color-accent-purple', delay: 350 },
@@ -232,7 +238,7 @@ const commands = {
 
   contact: () =>
     '\x1b[34mgithub\x1b[0m  \x1b[36mt91a60\x1b[0m\n' +
-    '\x1b[34memail\x1b[0m   \x1b[36mnikodem\x1b[33m@\x1b[36mexample.com\x1b[0m',
+    '\x1b[34memail\x1b[0m   \x1b[36mt91a60\x1b[33m@\x1b[36mgmail.com\x1b[0m',
 
   projects: () =>
     '\x1b[1;33mProjects:\x1b[0m\n' +
@@ -254,12 +260,12 @@ const commands = {
     '\x1b[33m      .:+ooooooooooo+/-          \x1b[0m\x1b[34mOS:\x1b[0m \x1b[36mUbuntu 24.04 LTS x86_64\x1b[0m\n' +
     '\x1b[33m    .+ooooooooooooooooo/.        \x1b[0m\x1b[34mHost:\x1b[0m \x1b[36mDev Machine v2.4\x1b[0m\n' +
     '\x1b[33m   /oooooooooooooooooooo+.       \x1b[0m\x1b[34mKernel:\x1b[0m \x1b[36mLinux 6.8.0-generic\x1b[0m\n' +
-    '\x1b[33m  :ooooooooooooooooooooooo:      \x1b[0m\x1b[34mUptime:\x1b[0m \x1b[36m' + Math.floor(Math.random() * 999) + ' hours\x1b[0m\n' +
+    '\x1b[33m  :ooooooooooooooooooooooo:      \x1b[0m\x1b[34mUptime:\x1b[0m \x1b[36m' + neofetchData.uptime + ' hours\x1b[0m\n' +
     '\x1b[32m -/ooooooooooooooooooooooo/-     \x1b[0m\x1b[34mDE:\x1b[0m \x1b[36mGNOME 46\x1b[0m\n' +
     '\x1b[32m:ooooooooooooooooooooooooooo:    \x1b[0m\x1b[34mShell:\x1b[0m \x1b[35mdev-portfolio 1.0\x1b[0m\n' +
     '\x1b[32m:ooooooooooooooooooooooooooo:    \x1b[0m\x1b[34mTerminal:\x1b[0m \x1b[36m/dev/tty1\x1b[0m\n' +
     '\x1b[32m -/ooooooooooooooooooooooo/-     \x1b[0m\x1b[34mCPU:\x1b[0m \x1b[36mAMD Ryzen 7 (16) @ 4.2GHz\x1b[0m\n' +
-    '\x1b[33m  :ooooooooooooooooooooooo:      \x1b[0m\x1b[34mMemory:\x1b[0m \x1b[36m' + (Math.floor(Math.random() * 8 + 12)) + 'GB / ' + (Math.floor(Math.random() * 4 + 28)) + 'GB\x1b[0m\n' +
+    '\x1b[33m  :ooooooooooooooooooooooo:      \x1b[0m\x1b[34mMemory:\x1b[0m \x1b[36m' + neofetchData.usedRam + 'GB / ' + neofetchData.totalRam + 'GB\x1b[0m\n' +
     '\x1b[33m   /oooooooooooooooooooo+.       \x1b[0m\x1b[34mStack:\x1b[0m \x1b[36mPython Flask React PWA\x1b[0m\n' +
     '\x1b[33m    .+ooooooooooooooooo/.        \x1b[0m\n' +
     '\x1b[33m      .:+ooooooooooo+/-          \x1b[0m\x1b[35mMade with love by t91a60\x1b[0m\n' +

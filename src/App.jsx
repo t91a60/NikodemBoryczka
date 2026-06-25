@@ -55,11 +55,18 @@ function savePosition(id, { left, top }) {
 
 function WindowFallback() {
   return (
-    <div className="flex items-center justify-center h-full">
-      <span
-        className="inline-block w-5 h-5 border-2 rounded-full animate-spin"
-        style={{ borderColor: 'var(--color-border)', borderTopColor: 'var(--color-accent)' }}
-      />
+    <div className="p-4 space-y-3 skeleton-pulse">
+      <div className="flex items-center gap-1.5 pb-3" style={{ borderBottom: '1px solid var(--color-border)' }}>
+        <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: 'var(--color-accent)' }} />
+        <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: 'var(--color-warning)' }} />
+        <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: 'var(--color-success)' }} />
+      </div>
+      <div className="space-y-2.5">
+        <div className="h-3 rounded" style={{ backgroundColor: 'var(--color-border)', width: '76%' }} />
+        <div className="h-3 rounded" style={{ backgroundColor: 'var(--color-border)', width: '52%' }} />
+        <div className="h-3 rounded" style={{ backgroundColor: 'var(--color-border)', width: '64%' }} />
+        <div className="h-3 rounded" style={{ backgroundColor: 'var(--color-border)', width: '38%' }} />
+      </div>
     </div>
   )
 }
@@ -71,6 +78,7 @@ export default function App() {
   const [activeWindow, setActiveWindow] = useState('terminal')
   const [zIndices, setZIndices] = useState({ terminal: 100, projects: 99, about: 98 })
   const [positions] = useState(loadPositions)
+  const [minimizedWindows, setMinimizedWindows] = useState({})
 
   const openWindow = useCallback((id) => {
     setWindows(prev => ({ ...prev, [id]: true }))
@@ -81,8 +89,31 @@ export default function App() {
     })
   }, [])
 
+  const minimizeWindow = useCallback((id) => {
+    setMinimizedWindows(prev => ({ ...prev, [id]: true }))
+    setActiveWindow(prev => prev === id ? null : prev)
+  }, [])
+
+  const restoreWindow = useCallback((id) => {
+    setMinimizedWindows(prev => {
+      const next = { ...prev }
+      delete next[id]
+      return next
+    })
+    setActiveWindow(id)
+    setZIndices(prev => {
+      nextZ++
+      return { ...prev, [id]: nextZ }
+    })
+  }, [])
+
   const closeWindow = useCallback((id) => {
     setWindows(prev => {
+      const next = { ...prev }
+      delete next[id]
+      return next
+    })
+    setMinimizedWindows(prev => {
       const next = { ...prev }
       delete next[id]
       return next
@@ -104,6 +135,12 @@ export default function App() {
 
   useEffect(() => {
     function handler(e) {
+      if (e.key === 'Escape' && activeWindow) {
+        e.preventDefault()
+        closeWindow(activeWindow)
+        return
+      }
+
       const mod = e.metaKey || e.ctrlKey
       if (!mod || e.shiftKey) return
 
@@ -111,7 +148,9 @@ export default function App() {
       const target = numMap[e.key]
       if (target) {
         e.preventDefault()
-        if (windows[target]) {
+        if (minimizedWindows[target]) {
+          restoreWindow(target)
+        } else if (windows[target]) {
           focusWindow(target)
         } else {
           openWindow(target)
@@ -126,7 +165,9 @@ export default function App() {
     }
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
-  }, [activeWindow, windows, focusWindow, openWindow, closeWindow])
+  }, [activeWindow, windows, minimizedWindows, focusWindow, openWindow, closeWindow, restoreWindow])
+
+  const visibleWindows = Object.keys(windows).filter(id => !minimizedWindows[id])
 
   return (
     <div
@@ -137,6 +178,7 @@ export default function App() {
         position: 'relative',
         overflow: 'hidden',
         paddingTop: 36,
+        willChange: 'transform',
         background: `
           radial-gradient(ellipse 100% 70% at 20% 30%, rgba(233,84,32,0.07) 0%, transparent 60%),
           radial-gradient(ellipse 60% 50% at 80% 60%, rgba(176,112,168,0.05) 0%, transparent 50%),
@@ -166,9 +208,9 @@ export default function App() {
 
       <TopBar />
 
-      <div id="main-content" style={{ width: '100%', height: '100%', position: 'relative' }}>
+      <div id="main-content" tabIndex={-1} style={{ width: '100%', height: '100%', position: 'relative' }}>
         <AnimatePresence>
-          {Object.keys(windows).map(id => {
+          {visibleWindows.map(id => {
             const config = windowConfigs[id]
             const Component = config.component
             return (
@@ -179,6 +221,7 @@ export default function App() {
                 isActive={activeWindow === id}
                 onFocus={() => focusWindow(id)}
                 onClose={closeWindow}
+                onMinimize={minimizeWindow}
                 onPositionChange={handlePositionChange}
                 width={config.width}
                 height={config.height}
@@ -224,13 +267,16 @@ export default function App() {
 
         <Dock
           onOpen={(id) => {
-            if (windows[id]) {
+            if (minimizedWindows[id]) {
+              restoreWindow(id)
+            } else if (windows[id]) {
               focusWindow(id)
             } else {
               openWindow(id)
             }
           }}
           openWindows={Object.keys(windows)}
+          minimizedWindows={minimizedWindows}
         />
       </div>
     </div>

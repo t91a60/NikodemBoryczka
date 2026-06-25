@@ -7,7 +7,7 @@ const dockItems = [
   { id: 'about', label: 'About', icon: User },
 ]
 
-export default function Dock({ onOpen, openWindows }) {
+export default function Dock({ onOpen, openWindows, minimizedWindows }) {
   return (
     <nav
       style={{
@@ -32,6 +32,7 @@ export default function Dock({ onOpen, openWindows }) {
       {dockItems.map((item) => {
         const Icon = item.icon
         const isOpen = openWindows.includes(item.id)
+        const isMinimized = isOpen && minimizedWindows?.[item.id]
         return (
           <button
             key={item.id}
@@ -48,12 +49,11 @@ export default function Dock({ onOpen, openWindows }) {
               border: 'none',
               cursor: 'pointer',
               color: isOpen ? 'var(--color-accent-bright)' : 'var(--color-text-dim)',
-              transition: 'color 150ms var(--ease-out), transform 150ms var(--ease-out)',
             }}
-            aria-label={`Open ${item.label}`}
+            aria-label={`${isMinimized ? 'Restore' : 'Open'} ${item.label}`}
             aria-pressed={isOpen}
           >
-            <Icon size={22} weight={isOpen ? 'fill' : 'regular'} />
+            <Icon size={22} weight={isOpen && !isMinimized ? 'fill' : 'regular'} />
             <span style={{ fontSize: 10, fontWeight: 500, lineHeight: 1 }}>{item.label}</span>
             {isOpen && (
               <motion.div
@@ -61,27 +61,16 @@ export default function Dock({ onOpen, openWindows }) {
                 style={{
                   position: 'absolute',
                   bottom: -4,
-                  width: 4,
-                  height: 4,
+                  width: isMinimized ? 3 : 4,
+                  height: isMinimized ? 3 : 4,
                   borderRadius: '50%',
-                  backgroundColor: 'var(--color-accent)',
+                  backgroundColor: isMinimized ? 'var(--color-text-dim)' : 'var(--color-accent)',
                 }}
               />
             )}
           </button>
         )
       })}
-
-      <style>{`
-        .dock-item:active {
-          transform: scale(0.95);
-        }
-        @media (hover: hover) and (pointer: fine) {
-          .dock-item:hover {
-            transform: translateY(-4px) scale(1.05);
-          }
-        }
-      `}</style>
     </nav>
   )
 }

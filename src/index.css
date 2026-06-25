@@ -201,6 +201,61 @@ button:active {
   }
 }
 
+.topbar-icon-btn {
+  background: transparent;
+  border: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .topbar-icon-btn:hover {
+    background-color: rgba(255, 255, 255, 0.06);
+  }
+}
+
+.dock-item {
+  transition: color 150ms var(--ease-out), transform 150ms var(--ease-out);
+}
+
+.dock-item:active {
+  transform: scale(0.95);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .dock-item:hover {
+    transform: translateY(-4px) scale(1.05);
+  }
+}
+
+.popup-item {
+  background-color: transparent;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .popup-item:hover {
+    background-color: rgba(255, 255, 255, 0.04);
+  }
+}
+
+.activities-btn {
+  cursor: default;
+  transition: background-color 150ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .activities-btn:hover {
+    background-color: rgba(255, 255, 255, 0.04);
+  }
+}
+
+.skeleton-pulse {
+  animation: skeletonPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes skeletonPulse {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.55; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

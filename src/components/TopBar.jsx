@@ -5,11 +5,18 @@ function Popup({ children, onClose }) {
   const ref = useRef(null)
 
   useEffect(() => {
-    function handler(e) {
+    function handleClick(e) {
       if (ref.current && !ref.current.contains(e.target)) onClose()
     }
-    document.addEventListener('mousedown', handler)
-    return () => document.removeEventListener('mousedown', handler)
+    function handleKey(e) {
+      if (e.key === 'Escape') onClose()
+    }
+    document.addEventListener('mousedown', handleClick)
+    document.addEventListener('keydown', handleKey)
+    return () => {
+      document.removeEventListener('mousedown', handleClick)
+      document.removeEventListener('keydown', handleKey)
+    }
   }, [onClose])
 
   return (
@@ -43,10 +50,7 @@ function WifiPopup() {
     <div className="p-3 space-y-1 min-w-[200px]">
       <div className="text-[11px] font-bold uppercase tracking-wider mb-2" style={{ color: 'var(--color-text-dim)' }}>Wi-Fi Networks</div>
       {networks.map(n => (
-        <div key={n} className="flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-xs cursor-pointer transition-colors" style={{ color: 'var(--color-text-muted)' }}
-          onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.04)'}
-          onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}
-        >
+        <div key={n} className="flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-xs cursor-pointer transition-colors popup-item" style={{ color: 'var(--color-text-muted)' }}>
           <WifiHigh size={12} style={{ color: 'var(--color-accent)' }} />
           {n}
         </div>
@@ -103,10 +107,7 @@ function UserPopup({ onClose }) {
         <div className="text-xs font-semibold" style={{ color: 'var(--color-text)' }}>nikodem</div>
         <div className="text-[10px]" style={{ color: 'var(--color-text-dim)' }}>nikodem@dev-desktop</div>
       </div>
-      <button className="flex items-center gap-2 w-full px-3 py-2 text-xs cursor-pointer transition-colors" style={{ color: 'var(--color-text-muted)' }}
-        onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.04)'}
-        onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}
-      >
+      <button className="flex items-center gap-2 w-full px-3 py-2 text-xs cursor-pointer transition-colors popup-item" style={{ color: 'var(--color-text-muted)' }}>
         <SignOut size={14} />
         Lock / Log Out
       </button>
@@ -128,8 +129,12 @@ export default function TopBar() {
   return (
     <div className="top-bar">
       <div
-        className="desktop-only flex items-center gap-2 px-2 py-1 rounded text-xs font-medium transition-colors"
+        className="desktop-only flex items-center gap-2 px-2 py-1 rounded text-xs font-medium transition-colors activities-btn"
         style={{ color: 'var(--color-text-muted)' }}
+        onClick={() => document.getElementById('main-content')?.focus()}
+        role="button"
+        tabIndex={0}
+        aria-label="Activities overview"
       >
         Activities
       </div>
@@ -140,9 +145,7 @@ export default function TopBar() {
 
       <div className="flex items-center gap-2" style={{ color: 'var(--color-text-dim)' }}>
         <div className="relative">
-          <button onClick={() => toggle('wifi')} className="flex items-center justify-center p-1 rounded transition-colors cursor-pointer" style={{ color: openPopup === 'wifi' ? 'var(--color-accent)' : undefined }}
-            onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)'}
-            onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}
+          <button onClick={() => toggle('wifi')} className="flex items-center justify-center p-1 rounded transition-colors cursor-pointer topbar-icon-btn" style={{ color: openPopup === 'wifi' ? 'var(--color-accent)' : undefined }}
             aria-label="Wi-Fi settings"
           >
             <WifiHigh size={14} />
@@ -151,9 +154,7 @@ export default function TopBar() {
         </div>
 
         <div className="relative">
-          <button onClick={() => toggle('speaker')} className="flex items-center justify-center p-1 rounded transition-colors cursor-pointer"
-            onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)'}
-            onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}
+          <button onClick={() => toggle('speaker')} className="flex items-center justify-center p-1 rounded transition-colors cursor-pointer topbar-icon-btn"
             aria-label="Volume settings"
           >
             <SpeakerHigh size={14} />
@@ -162,9 +163,7 @@ export default function TopBar() {
         </div>
 
         <div className="relative">
-          <button onClick={() => toggle('battery')} className="flex items-center justify-center p-1 rounded transition-colors cursor-pointer"
-            onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)'}
-            onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}
+          <button onClick={() => toggle('battery')} className="flex items-center justify-center p-1 rounded transition-colors cursor-pointer topbar-icon-btn"
             aria-label="Battery status"
           >
             <BatteryFull size={14} />
@@ -175,10 +174,8 @@ export default function TopBar() {
         <div className="w-px h-4 mx-1" style={{ backgroundColor: 'var(--color-border)' }} />
 
         <div className="relative">
-          <button onClick={() => toggle('user')} className="flex items-center justify-center p-0.5 rounded transition-colors cursor-pointer"
+          <button onClick={() => toggle('user')} className="flex items-center justify-center p-0.5 rounded transition-colors cursor-pointer topbar-icon-btn"
             style={{ color: openPopup === 'user' ? 'var(--color-accent-bright)' : 'var(--color-accent)' }}
-            onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)'}
-            onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}
             aria-label="User menu"
           >
             <UserCircle size={18} weight="duotone" />
