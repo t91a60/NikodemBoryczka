@@ -10,7 +10,7 @@ const ANSI_COLORS = {
 export function parseAnsi(text) {
   if (!text) return [{ text: '', style: {} }]
   const parts = []
-  const regex = /\x1b\[([\d;]*)m/g
+  const regex = /\x1b\[([\d;]*)m/g // eslint-disable-line no-control-regex
   let lastIndex = 0
   let currentStyles = {}
 

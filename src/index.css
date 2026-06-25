@@ -149,7 +149,7 @@ button:focus:not(:focus-visible) {
   }
 
   .top-bar {
-    padding: 0 6px !important;
+    padding: 0 4px !important;
   }
 
   .top-bar .gap-3 {
@@ -165,8 +165,17 @@ button:focus:not(:focus-visible) {
   }
 
   #root > div {
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: touch;
+    overflow: hidden !important;
+  }
+
+  .dock-item span {
+    display: none !important;
+  }
+
+  nav[aria-label="Application dock"] {
+    padding: 6px 6px !important;
+    gap: 2px !important;
+    bottom: 8px !important;
   }
 }
 

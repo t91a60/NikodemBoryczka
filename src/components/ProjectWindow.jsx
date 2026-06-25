@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { projects } from '../data/projects'
 import { motion, AnimatePresence } from 'motion/react'
-import { GithubLogo, Code, Globe, Star, GitFork, Clock } from '@phosphor-icons/react'
+import { GithubLogo, Code, Star, GitFork } from '@phosphor-icons/react'
 
 const projectColors = {
   'osp-logbook': { primary: '#0E8420', bg: 'rgba(14,132,32,0.08)', border: 'rgba(14,132,32,0.2)' },

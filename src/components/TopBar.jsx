@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
-import { WifiHigh, SpeakerHigh, BatteryFull, UserCircle, SignOut } from '@phosphor-icons/react'
+import { WifiHigh, SpeakerHigh, BatteryFull, UserCircle, SignOut, Bell, BellRinging } from '@phosphor-icons/react'
+import { useNotify } from '../hooks/useNotify.js'
 
 function Popup({ children, onClose }) {
   const ref = useRef(null)
@@ -45,12 +46,12 @@ function Popup({ children, onClose }) {
 }
 
 function WifiPopup() {
-  const networks = ['Orange Fiber', 'Play 5G', 'Domowa Siec', 'UPC WiFi']
+  const networks = ['Orange Fiber', 'Play 5G', 'Home Network', 'UPC WiFi']
   return (
     <div className="p-3 space-y-1 min-w-[200px]">
       <div className="text-[11px] font-bold uppercase tracking-wider mb-2" style={{ color: 'var(--color-text-dim)' }}>Wi-Fi Networks</div>
       {networks.map(n => (
-        <div key={n} className="flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-xs cursor-pointer transition-colors popup-item" style={{ color: 'var(--color-text-muted)' }}>
+        <div key={n} className="flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-xs transition-colors popup-item" style={{ color: 'var(--color-text-muted)' }}>
           <WifiHigh size={12} style={{ color: 'var(--color-accent)' }} />
           {n}
         </div>
@@ -100,7 +101,7 @@ function BatteryPopup() {
   )
 }
 
-function UserPopup({ onClose }) {
+function UserPopup() {
   return (
     <div className="py-1 min-w-[160px]">
       <div className="px-3 py-2 border-b" style={{ borderColor: 'var(--color-border)' }}>
@@ -115,9 +116,10 @@ function UserPopup({ onClose }) {
   )
 }
 
-export default function TopBar() {
+export default function TopBar({ onActivitiesClick, minimizedWindows }) {
   const [time, setTime] = useState(new Date())
   const [openPopup, setOpenPopup] = useState(null)
+  const { toasts } = useNotify()
 
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000)
@@ -126,26 +128,37 @@ export default function TopBar() {
 
   const toggle = (name) => setOpenPopup(prev => prev === name ? null : name)
 
+  const hasNotifications = toasts.length > 0
+  const minimizedCount = minimizedWindows ? Object.keys(minimizedWindows).length : 0
+
   return (
     <div className="top-bar">
-      <div
-        className="desktop-only flex items-center gap-2 px-2 py-1 rounded text-xs font-medium transition-colors activities-btn"
-        style={{ color: 'var(--color-text-muted)' }}
-        onClick={() => document.getElementById('main-content')?.focus()}
-        role="button"
-        tabIndex={0}
-        aria-label="Activities overview"
-      >
-        Activities
+      <div className="flex items-center gap-2">
+        <div
+          className="desktop-only flex items-center gap-2 px-2.5 py-1 rounded text-xs font-medium transition-colors cursor-pointer activities-btn"
+          style={{ color: 'var(--color-text-muted)' }}
+          onClick={onActivitiesClick}
+          role="button"
+          tabIndex={0}
+          aria-label="Activities overview"
+          onKeyDown={e => { if (e.key === 'Enter') onActivitiesClick?.() }}
+        >
+          Activities
+        </div>
+        {minimizedCount > 0 && (
+          <span className="desktop-only text-[10px]" style={{ color: 'var(--color-text-dim)' }}>
+            {minimizedCount} minimized
+          </span>
+        )}
       </div>
 
       <div className="flex items-center gap-3 font-mono text-sm tabular-nums" style={{ color: 'var(--color-text)' }}>
-        {time.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' })}
+        {time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
       </div>
 
-      <div className="flex items-center gap-2" style={{ color: 'var(--color-text-dim)' }}>
+      <div className="flex items-center gap-1" style={{ color: 'var(--color-text-dim)' }}>
         <div className="relative">
-          <button onClick={() => toggle('wifi')} className="flex items-center justify-center p-1 rounded transition-colors cursor-pointer topbar-icon-btn" style={{ color: openPopup === 'wifi' ? 'var(--color-accent)' : undefined }}
+          <button onClick={() => toggle('wifi')} className="flex items-center justify-center p-1.5 rounded transition-colors cursor-pointer topbar-icon-btn" style={{ color: openPopup === 'wifi' ? 'var(--color-accent)' : undefined }}
             aria-label="Wi-Fi settings"
           >
             <WifiHigh size={14} />
@@ -154,7 +167,7 @@ export default function TopBar() {
         </div>
 
         <div className="relative">
-          <button onClick={() => toggle('speaker')} className="flex items-center justify-center p-1 rounded transition-colors cursor-pointer topbar-icon-btn"
+          <button onClick={() => toggle('speaker')} className="flex items-center justify-center p-1.5 rounded transition-colors cursor-pointer topbar-icon-btn"
             aria-label="Volume settings"
           >
             <SpeakerHigh size={14} />
@@ -163,7 +176,7 @@ export default function TopBar() {
         </div>
 
         <div className="relative">
-          <button onClick={() => toggle('battery')} className="flex items-center justify-center p-1 rounded transition-colors cursor-pointer topbar-icon-btn"
+          <button onClick={() => toggle('battery')} className="flex items-center justify-center p-1.5 rounded transition-colors cursor-pointer topbar-icon-btn"
             aria-label="Battery status"
           >
             <BatteryFull size={14} />
@@ -171,7 +184,18 @@ export default function TopBar() {
           {openPopup === 'battery' && <Popup onClose={() => setOpenPopup(null)}><BatteryPopup /></Popup>}
         </div>
 
-        <div className="w-px h-4 mx-1" style={{ backgroundColor: 'var(--color-border)' }} />
+        <div className="w-px h-4 mx-0.5" style={{ backgroundColor: 'var(--color-border)' }} />
+
+        <div className="relative">
+          <button
+            onClick={() => toggle('notifications')}
+            className="flex items-center justify-center p-1.5 rounded transition-colors cursor-pointer topbar-icon-btn"
+            aria-label="Notifications"
+            style={{ color: hasNotifications ? 'var(--color-accent-bright)' : undefined }}
+          >
+            {hasNotifications ? <BellRinging size={14} /> : <Bell size={14} />}
+          </button>
+        </div>
 
         <div className="relative">
           <button onClick={() => toggle('user')} className="flex items-center justify-center p-0.5 rounded transition-colors cursor-pointer topbar-icon-btn"

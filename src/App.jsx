@@ -4,6 +4,11 @@ import { Terminal, Folder, User } from '@phosphor-icons/react'
 import TopBar from './components/TopBar.jsx'
 import Window from './components/Window.jsx'
 import Dock from './components/Dock.jsx'
+import Background from './components/Background.jsx'
+import ActivitiesOverview from './components/ActivitiesOverview.jsx'
+import ContextMenu from './components/ContextMenu.jsx'
+import { NotificationProvider } from './components/NotificationCenter.jsx'
+import { useNotify } from './hooks/useNotify.js'
 import WindowErrorBoundary from './components/ErrorBoundary.jsx'
 
 const TerminalWindow = lazy(() => import('./components/Terminal.jsx'))
@@ -19,7 +24,7 @@ const windowConfigs = {
 const desktopIcons = [
   { id: 'terminal', label: 'Terminal', icon: Terminal },
   { id: 'projects', label: 'Projects', icon: Folder },
-  { id: 'about', label: 'About me', icon: User },
+  { id: 'about', label: 'About', icon: User },
 ]
 
 function isMobile() {
@@ -37,11 +42,13 @@ function loadPositions() {
     const saved = localStorage.getItem('window-positions')
     const base = saved ? { ...defaultPositions, ...JSON.parse(saved) } : defaultPositions
     if (isMobile()) {
-      Object.keys(base).forEach(k => { base[k].left = 12; base[k].top = 12 })
+      Object.keys(base).forEach(k => { base[k].left = 0; base[k].top = 0 })
     }
     return base
   } catch {
-    return isMobile() ? { terminal: { left: 12, top: 12 }, projects: { left: 12, top: 12 }, about: { left: 12, top: 12 } } : defaultPositions
+    return isMobile()
+      ? { terminal: { left: 0, top: 0 }, projects: { left: 0, top: 0 }, about: { left: 0, top: 0 } }
+      : defaultPositions
   }
 }
 
@@ -50,6 +57,7 @@ function savePosition(id, { left, top }) {
     const current = JSON.parse(localStorage.getItem('window-positions') || '{}')
     current[id] = { left, top }
     localStorage.setItem('window-positions', JSON.stringify(current))
+  // eslint-disable-next-line no-empty
   } catch {}
 }
 
@@ -73,12 +81,23 @@ function WindowFallback() {
 
 let nextZ = 101
 
-export default function App() {
+function AppContent() {
   const [windows, setWindows] = useState({ terminal: true, projects: true, about: true })
   const [activeWindow, setActiveWindow] = useState('terminal')
   const [zIndices, setZIndices] = useState({ terminal: 100, projects: 99, about: 98 })
   const [positions] = useState(loadPositions)
   const [minimizedWindows, setMinimizedWindows] = useState({})
+  const [overviewOpen, setOverviewOpen] = useState(false)
+  const [contextMenu, setContextMenu] = useState(null)
+  const notify = useNotify()
+
+  useEffect(() => {
+    const welcomed = sessionStorage.getItem('welcomed')
+    if (!welcomed) {
+      notify('Welcome to Nikodem\'s dev desktop. Press Super+1-3 to switch windows.', { duration: 5000 })
+      sessionStorage.setItem('welcomed', 'true')
+    }
+  }, [notify])
 
   const openWindow = useCallback((id) => {
     setWindows(prev => ({ ...prev, [id]: true }))
@@ -87,6 +106,11 @@ export default function App() {
       nextZ++
       return { ...prev, [id]: nextZ }
     })
+    if (isMobile()) {
+      setTimeout(() => {
+        document.getElementById(`window-${id}`)?.scrollIntoView({ behavior: 'smooth' })
+      }, 100)
+    }
   }, [])
 
   const minimizeWindow = useCallback((id) => {
@@ -133,16 +157,56 @@ export default function App() {
     savePosition(id, pos)
   }, [])
 
+  const handleContextAction = useCallback((action) => {
+    if (action === 'terminal' || action === 'projects' || action === 'about') {
+      openWindow(action)
+    } else if (action === 'arrange') {
+      notify('Windows arranged. Drag them to reposition.', { duration: 3000 })
+    }
+  }, [openWindow, notify])
+
   useEffect(() => {
     function handler(e) {
-      if (e.key === 'Escape' && activeWindow) {
-        e.preventDefault()
-        closeWindow(activeWindow)
-        return
+      if (e.button === 2) {
+        const target = e.target
+        const isDesktop = target?.id === 'main-content' || target?.closest?.('#main-content') === target
+        if (isDesktop) {
+          e.preventDefault()
+          setContextMenu({ x: e.clientX, y: e.clientY })
+        }
+      }
+    }
+    document.addEventListener('contextmenu', handler)
+    return () => document.removeEventListener('contextmenu', handler)
+  }, [])
+
+  useEffect(() => {
+    function handler(e) {
+      if (e.key === 'Escape') {
+        if (overviewOpen) { setOverviewOpen(false); return }
+        if (activeWindow) {
+          e.preventDefault()
+          closeWindow(activeWindow)
+          return
+        }
       }
 
       const mod = e.metaKey || e.ctrlKey
       if (!mod || e.shiftKey) return
+
+      if (e.key === 'Tab') {
+        e.preventDefault()
+        const ids = Object.keys(windows)
+        if (ids.length === 0) return
+        const idx = ids.indexOf(activeWindow)
+        const next = ids[(idx + 1) % ids.length]
+        if (minimizedWindows[next]) {
+          restoreWindow(next)
+        } else {
+          focusWindow(next)
+        }
+        return
+      }
 
       const numMap = { '1': 'terminal', '2': 'projects', '3': 'about' }
       const target = numMap[e.key]
@@ -165,7 +229,7 @@ export default function App() {
     }
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
-  }, [activeWindow, windows, minimizedWindows, focusWindow, openWindow, closeWindow, restoreWindow])
+  }, [activeWindow, windows, minimizedWindows, overviewOpen, focusWindow, openWindow, closeWindow, restoreWindow])
 
   const visibleWindows = Object.keys(windows).filter(id => !minimizedWindows[id])
 
@@ -178,18 +242,10 @@ export default function App() {
         position: 'relative',
         overflow: 'hidden',
         paddingTop: 36,
-        willChange: 'transform',
-        background: `
-          radial-gradient(ellipse 100% 70% at 20% 30%, rgba(233,84,32,0.07) 0%, transparent 60%),
-          radial-gradient(ellipse 60% 50% at 80% 60%, rgba(176,112,168,0.05) 0%, transparent 50%),
-          radial-gradient(ellipse 40% 50% at 50% 90%, rgba(233,84,32,0.03) 0%, transparent 40%),
-          linear-gradient(135deg, rgba(233,84,32,0.02) 0%, transparent 25%, rgba(176,112,168,0.02) 50%, transparent 75%, rgba(233,84,32,0.02) 100%),
-          repeating-linear-gradient(45deg, transparent, transparent 60px, rgba(255,255,255,0.005) 60px, rgba(255,255,255,0.005) 61px),
-          repeating-linear-gradient(-45deg, transparent, transparent 60px, rgba(255,255,255,0.005) 60px, rgba(255,255,255,0.005) 61px),
-          radial-gradient(circle at 50% 50%, rgba(233,84,32,0.03) 0%, transparent 70%)
-        `,
       }}
     >
+      <Background />
+
       <h1
         style={{
           position: 'absolute',
@@ -206,64 +262,79 @@ export default function App() {
         Nikodem Boryczka - Ubuntu desktop portfolio
       </h1>
 
-      <TopBar />
+      <TopBar
+        onActivitiesClick={() => setOverviewOpen(true)}
+        minimizedWindows={minimizedWindows}
+      />
 
-      <div id="main-content" tabIndex={-1} style={{ width: '100%', height: '100%', position: 'relative' }}>
+      <div
+        id="main-content"
+        tabIndex={-1}
+        style={{
+          width: '100%',
+          height: '100%',
+          position: 'relative',
+          zIndex: 1,
+        }}
+      >
         <AnimatePresence>
           {visibleWindows.map(id => {
             const config = windowConfigs[id]
             const Component = config.component
             return (
-              <Window
-                key={id}
-                id={id}
-                title={config.title}
-                isActive={activeWindow === id}
-                onFocus={() => focusWindow(id)}
-                onClose={closeWindow}
-                onMinimize={minimizeWindow}
-                onPositionChange={handlePositionChange}
-                width={config.width}
-                height={config.height}
-                style={{ ...positions[id], zIndex: zIndices[id] }}
-              >
-                <WindowErrorBoundary title={config.title}>
-                  <Suspense fallback={<WindowFallback />}>
-                    <Component />
-                  </Suspense>
-                </WindowErrorBoundary>
-              </Window>
+              <div key={id} id={`window-${id}`} style={isMobile() ? { position: 'fixed', inset: 0, zIndex: zIndices[id], paddingTop: 36 } : undefined}>
+                <Window
+                  id={id}
+                  title={config.title}
+                  isActive={activeWindow === id}
+                  onFocus={() => focusWindow(id)}
+                  onClose={closeWindow}
+                  onMinimize={minimizeWindow}
+                  onPositionChange={handlePositionChange}
+                  width={config.width}
+                  height={config.height}
+                  style={isMobile() ? { left: 0, top: 0, zIndex: zIndices[id] } : { ...positions[id], zIndex: zIndices[id] }}
+                >
+                  <WindowErrorBoundary title={config.title}>
+                    <Suspense fallback={<WindowFallback />}>
+                      <Component />
+                    </Suspense>
+                  </WindowErrorBoundary>
+                </Window>
+              </div>
             )
           })}
         </AnimatePresence>
 
-        <div className="desktop-sidebar" style={{
-          position: 'absolute',
-          left: 12,
-          top: 16,
-          zIndex: 'var(--z-desktop-icons)',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 2,
-        }}>
-          {desktopIcons.map(item => {
-            const Icon = item.icon
-            const isOpen = windows[item.id]
-            return (
-              <button
-                key={item.id}
-                onClick={() => openWindow(item.id)}
-                className={`desktop-icon flex items-center gap-2.5 px-2.5 py-2 rounded-lg transition-all cursor-pointer text-left ${isOpen ? 'active' : ''}`}
-                style={{
-                  color: isOpen ? 'var(--color-accent-bright)' : 'var(--color-text-dim)',
-                }}
-              >
-                <Icon size={16} weight={isOpen ? 'fill' : 'regular'} />
-                <span className="text-xs font-medium">{item.label}</span>
-              </button>
-            )
-          })}
-        </div>
+        {!isMobile() && (
+          <div className="desktop-sidebar" style={{
+            position: 'absolute',
+            left: 12,
+            top: 16,
+            zIndex: 'var(--z-desktop-icons)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 4,
+          }}>
+            {desktopIcons.map(item => {
+              const Icon = item.icon
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => openWindow(item.id)}
+                  className={`desktop-icon flex flex-col items-center gap-0.5 px-2 py-1.5 rounded-lg transition-all cursor-pointer text-center ${windows[item.id] ? 'active' : ''}`}
+                  style={{
+                    color: windows[item.id] ? 'var(--color-accent-bright)' : 'var(--color-text-dim)',
+                    width: 68,
+                  }}
+                >
+                  <Icon size={24} weight={windows[item.id] ? 'fill' : 'regular'} />
+                  <span className="text-[10px] font-medium leading-tight truncate w-full">{item.label}</span>
+                </button>
+              )
+            })}
+          </div>
+        )}
 
         <Dock
           onOpen={(id) => {
@@ -279,6 +350,39 @@ export default function App() {
           minimizedWindows={minimizedWindows}
         />
       </div>
+
+      <ActivitiesOverview
+        open={overviewOpen}
+        windows={windows}
+        minimizedWindows={minimizedWindows}
+        onOpen={(id) => {
+          if (minimizedWindows[id]) {
+            restoreWindow(id)
+          } else {
+            openWindow(id)
+          }
+        }}
+        onFocus={focusWindow}
+        onClose={closeWindow}
+        onCloseOverview={() => setOverviewOpen(false)}
+      />
+
+      {contextMenu && (
+        <ContextMenu
+          x={contextMenu.x}
+          y={contextMenu.y}
+          onClose={() => setContextMenu(null)}
+          onAction={handleContextAction}
+        />
+      )}
     </div>
+  )
+}
+
+export default function App() {
+  return (
+    <NotificationProvider>
+      <AppContent />
+    </NotificationProvider>
   )
 }

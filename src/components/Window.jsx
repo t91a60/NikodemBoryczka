@@ -1,15 +1,29 @@
 import { motion } from 'motion/react'
-import { useRef, useState, useCallback } from 'react'
+import { useRef, useState, useCallback, useEffect } from 'react'
 
 const HANDLE_SIZE = 6
 const HANDLE_HIT = 10
+
+function isMobile() {
+  return window.innerWidth <= 640
+}
 
 export default function Window({ id, title, children, isActive, onFocus, onClose, onMinimize, onPositionChange, style, width, height }) {
   const originRef = useRef({ left: style?.left || 0, top: style?.top || 0 })
   const [size, setSize] = useState({ width, height })
   const [maximized, setMaximized] = useState(false)
+  const [mobile, setMobile] = useState(isMobile())
+  const [isResizing, setIsResizing] = useState(false)
   const prevRect = useRef(null)
-  const resizing = useRef(null)
+  const resizingRef = useRef(null)
+
+  useEffect(() => {
+    function handleResize() {
+      setMobile(isMobile())
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   function toggleMaximize() {
     if (maximized) {
@@ -32,10 +46,12 @@ export default function Window({ id, title, children, isActive, onFocus, onClose
   }
 
   const handleResize = useCallback((dir) => (e) => {
+    if (mobile) return
     e.preventDefault()
     e.stopPropagation()
     onFocus()
-    resizing.current = dir
+    resizingRef.current = dir
+    setIsResizing(true)
 
     const startX = e.clientX
     const startY = e.clientY
@@ -73,7 +89,8 @@ export default function Window({ id, title, children, isActive, onFocus, onClose
     }
 
     function onUp() {
-      resizing.current = null
+      resizingRef.current = null
+      setIsResizing(false)
       onPositionChange?.(id, originRef.current)
       window.removeEventListener('mousemove', onMove)
       window.removeEventListener('mouseup', onUp)
@@ -81,14 +98,17 @@ export default function Window({ id, title, children, isActive, onFocus, onClose
 
     window.addEventListener('mousemove', onMove)
     window.addEventListener('mouseup', onUp)
-  }, [id, size, onFocus, onPositionChange])
+  }, [id, size, onFocus, onPositionChange, mobile])
+
+  const winWidth = mobile ? '100vw' : (maximized ? '100vw' : `min(${size.width}px, calc(100vw - 24px))`)
+  const winHeight = mobile ? '100vh' : (maximized ? 'calc(100vh - 36px)' : `min(${size.height}px, calc(100vh - 80px))`)
 
   return (
     <motion.div
-      drag={maximized ? false : !resizing.current}
+      drag={mobile || maximized ? false : !isResizing}
       dragMomentum={false}
-      onMouseDown={(e) => {
-        if (resizing.current) return
+      onMouseDown={() => {
+        if (isResizing) return
         onFocus()
       }}
       onDragStart={() => {
@@ -102,19 +122,19 @@ export default function Window({ id, title, children, isActive, onFocus, onClose
         originRef.current = { left: newLeft, top: newTop }
         onPositionChange?.(id, originRef.current)
       }}
-      initial={{ opacity: 0, scale: 0.95, y: 10 }}
+      initial={{ opacity: 0, scale: mobile ? 0.97 : 0.95, y: mobile ? 10 : 10 }}
       animate={{
         opacity: 1,
         scale: 1,
         y: 0,
-        left: maximized ? 0 : style?.left,
-        top: maximized ? 0 : style?.top,
-        width: maximized ? '100vw' : `min(${size.width}px, calc(100vw - 24px))`,
-        height: maximized ? 'calc(100vh - 36px)' : `min(${size.height}px, calc(100vh - 80px))`,
-        borderRadius: maximized ? 0 : 8,
+        left: mobile ? 0 : (maximized ? 0 : style?.left),
+        top: mobile ? 36 : (maximized ? 0 : style?.top),
+        width: winWidth,
+        height: mobile ? 'calc(100vh - 36px)' : winHeight,
+        borderRadius: mobile ? 0 : (maximized ? 0 : 8),
       }}
       exit={{ opacity: 0, scale: 0.5, y: 150, transition: { duration: 0.2, ease: [0.23, 1, 0.32, 1] } }}
-      transition={{ duration: 0.18, ease: [0.23, 1, 0.32, 1] }}
+      transition={{ duration: 0.18, ease: [0.23, 1, 0.32, 1], left: { duration: 0.12 }, top: { duration: 0.12 } }}
       style={{
         border: '1px solid',
         borderColor: isActive ? 'var(--color-border-light)' : 'var(--color-border)',
@@ -122,45 +142,65 @@ export default function Window({ id, title, children, isActive, onFocus, onClose
         boxShadow: isActive
           ? '0 16px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(233,84,32,0.08)'
           : '0 6px 24px rgba(0,0,0,0.3)',
-        position: 'absolute',
+        position: mobile ? 'fixed' : 'absolute',
         zIndex: style?.zIndex,
+        overflow: 'hidden',
       }}
       whileDrag={{
         boxShadow: '0 24px 72px rgba(0,0,0,0.55), 0 0 0 1px rgba(233,84,32,0.12)',
       }}
     >
       <div
-        className="flex items-center justify-between px-3 py-2 select-none cursor-grab active:cursor-grabbing"
+        className="flex items-center justify-between px-3 py-2 select-none"
         style={{
+          cursor: mobile ? 'default' : (maximized ? 'default' : 'grab'),
           backgroundColor: isActive ? 'var(--color-surface-elevated)' : 'var(--color-surface)',
           borderBottom: '1px solid var(--color-border)',
-          borderRadius: maximized ? 0 : '7px 7px 0 0',
+          borderRadius: mobile ? 0 : (maximized ? 0 : '7px 7px 0 0'),
+          minHeight: 36,
         }}
-        onMouseDown={(e) => e.stopPropagation()}
-        onDoubleClick={toggleMaximize}
+        onMouseDown={(e) => { if (!mobile) e.stopPropagation() }}
+        onDoubleClick={mobile ? undefined : toggleMaximize}
       >
+        {mobile && (
+          <button
+            onClick={(e) => { e.stopPropagation(); onClose(id); }}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: 'var(--color-text-dim)',
+              cursor: 'pointer',
+              padding: '2px 6px',
+              fontSize: 16,
+              lineHeight: 1,
+            }}
+            aria-label="Go back"
+          >
+            &larr;
+          </button>
+        )}
         <span
-          className="text-xs font-medium tracking-wide"
-          style={{ color: 'var(--color-text-dim)' }}
+          className="text-xs font-medium tracking-wide truncate"
+          style={{ color: 'var(--color-text-dim)', flex: 1, marginLeft: mobile ? 4 : 0 }}
         >
           {title}
         </span>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 shrink-0">
           <button
             onClick={(e) => { e.stopPropagation(); onClose(id); }}
-            className="flex items-center justify-center w-[13px] h-[13px] rounded-full"
+            className="flex items-center justify-center w-[13px] h-[13px] rounded-full transition-opacity hover:opacity-80"
             style={{ backgroundColor: 'var(--color-accent)' }}
             aria-label="Close window"
           />
           <button
             onClick={(e) => { e.stopPropagation(); onMinimize(id); }}
-            className="flex items-center justify-center w-[13px] h-[13px] rounded-full"
+            className="flex items-center justify-center w-[13px] h-[13px] rounded-full transition-opacity hover:opacity-80"
             style={{ backgroundColor: 'var(--color-warning)' }}
             aria-label="Minimize window"
           />
           <button
             onClick={(e) => { e.stopPropagation(); toggleMaximize(); }}
-            className="flex items-center justify-center w-[13px] h-[13px] rounded-full"
+            className="flex items-center justify-center w-[13px] h-[13px] rounded-full transition-opacity hover:opacity-80"
             style={{ backgroundColor: 'var(--color-success)' }}
             aria-label={maximized ? 'Restore window' : 'Maximize window'}
           />
@@ -170,7 +210,7 @@ export default function Window({ id, title, children, isActive, onFocus, onClose
         {children}
       </div>
 
-      {!maximized && (
+      {!maximized && !mobile && (
         <>
           <div
             onMouseDown={handleResize('se')}

@@ -1,12 +1,12 @@
 import { motion } from 'motion/react'
-import { GithubLogo, MapPin, CalendarBlank, Brain, Terminal, Code, UserCircle, WifiHigh, HardDrives, Cpu } from '@phosphor-icons/react'
+import { GithubLogo, MapPin, CalendarBlank, Brain, Terminal, Code, UserCircle, HardDrives, Cpu } from '@phosphor-icons/react'
 
 export default function AboutWindow() {
   const specs = [
     { icon: <UserCircle size={15} />, label: 'User', value: 'Nikodem Boryczka' },
     { icon: <Terminal size={15} />, label: 'Hostname', value: 'nikodem-dev-desktop' },
     { icon: <MapPin size={15} />, label: 'Location', value: 'Silesia, Poland' },
-    { icon: <CalendarBlank size={15} />, label: 'Currently', value: 'Technikum programistyczne' },
+    { icon: <CalendarBlank size={15} />, label: 'Currently', value: 'Programming Technical School' },
     { icon: <Brain size={15} />, label: 'Focus', value: 'AI, Full-stack, Open source' },
     { icon: <GithubLogo size={15} />, label: 'GitHub', value: <a href="https://github.com/t91a60" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)' }}>t91a60</a> },
   ]
@@ -59,7 +59,7 @@ export default function AboutWindow() {
               <Code size={14} />
               About me
             </div>
-            Student at technikum programistyczne with AI specialization.
+            Student at Programming Technical School with AI specialization.
             Building open-source tools, web applications, and exploring
             software engineering and artificial intelligence.
             Based in Silesia, Poland.
