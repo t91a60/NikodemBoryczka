@@ -91,7 +91,7 @@ function AppContent() {
   const [minimizedWindows, setMinimizedWindows] = useState({})
   const [overviewOpen, setOverviewOpen] = useState(false)
   const [contextMenu, setContextMenu] = useState(null)
-  const notify = useNotify()
+  const { notify } = useNotify()
 
   useEffect(() => {
     const welcomed = sessionStorage.getItem('welcomed')
