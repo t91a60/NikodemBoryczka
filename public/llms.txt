@@ -1,0 +1,27 @@
+# Nikodem Boryczka — AI Developer & Software Engineer
+
+## Who am I?
+Nikodem Boryczka is an AI Developer and Software Engineer from Silesia, Poland. He is a student at Programming Technical School with AI specialization. He builds open-source tools, web applications, and explores software engineering and artificial intelligence.
+
+## Tech Stack
+- Python, Flask, FastAPI, PostgreSQL, Docker
+- React, JavaScript, TypeScript, PWA
+- Redis, JWT, Git, Linux
+
+## Key Projects
+- **OSP Logbook** — Flask + PostgreSQL + Docker + PWA web app for fire brigade unit logistics
+- **AlkoRater** — iOS PWA for rating and cataloging alcohols
+- **Gather** — FastAPI + PostgreSQL + Redis event/social REST API
+- **UPM Ultras** — HTML/CSS static fan club website
+
+## Contact
+- GitHub: https://github.com/t91a60
+- Email: t91a60@gmail.com
+
+## Links
+- Portfolio: https://t91a60.github.io/NikodemBoryczka/
+- GitHub Profile: https://github.com/t91a60
+- OSP Logbook: https://github.com/t91a60/osp-logbook
+- AlkoRater: https://github.com/t91a60/alko-rater
+- Gather: https://github.com/t91a60/Gather
+- UPM Ultras: https://github.com/t91a60/upm-ultras

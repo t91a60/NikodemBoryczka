@@ -6,7 +6,7 @@ export default function AboutWindow() {
     { icon: <UserCircle size={15} />, label: 'User', value: 'Nikodem Boryczka' },
     { icon: <Terminal size={15} />, label: 'Hostname', value: 'nikodem-dev-desktop' },
     { icon: <MapPin size={15} />, label: 'Location', value: 'Silesia, Poland' },
-    { icon: <CalendarBlank size={15} />, label: 'Currently', value: 'Programming Technical School' },
+    { icon: <CalendarBlank size={15} />, label: 'Currently', value: 'Programming Technical School (AI)' },
     { icon: <Brain size={15} />, label: 'Focus', value: 'AI, Full-stack, Open source' },
     { icon: <GithubLogo size={15} />, label: 'GitHub', value: <a href="https://github.com/t91a60" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)' }}>t91a60</a> },
   ]
@@ -14,7 +14,7 @@ export default function AboutWindow() {
   const stack = ['Python', 'Flask', 'PostgreSQL', 'Docker', 'React', 'JavaScript', 'PWA', 'Linux', 'Git', 'TypeScript', 'Redis']
 
   return (
-    <div className="flex flex-col h-full font-sans">
+    <article className="flex flex-col h-full font-sans" aria-label="About Nikodem Boryczka">
       <div
         className="flex items-center gap-4 px-5 py-4"
         style={{
@@ -29,51 +29,65 @@ export default function AboutWindow() {
             color: '#fff',
             boxShadow: '0 4px 16px rgba(233,84,32,0.25)',
           }}
+          aria-hidden="true"
         >
           NB
         </div>
         <div>
-          <p className="text-base font-bold" style={{ color: 'var(--color-text)' }}>Nikodem Boryczka</p>
+          <h2 className="text-base font-bold" style={{ color: 'var(--color-text)' }}>Nikodem Boryczka</h2>
           <p className="text-sm" style={{ color: 'var(--color-accent)' }}>AI Developer & Software Engineer</p>
           <div className="flex items-center gap-1.5 mt-1">
             <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'var(--color-success)' }} />
-            <span className="text-[11px]" style={{ color: 'var(--color-text-dim)' }}>Active</span>
+            <span className="text-[11px]" style={{ color: 'var(--color-text-dim)' }}>Active — open to collaboration</span>
           </div>
         </div>
       </div>
 
       <div className="flex-1 overflow-y-auto">
         <div className="p-4 space-y-4">
-          <motion.div
+          <motion.section
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
-            className="rounded-xl p-4 text-sm leading-relaxed"
+            className="rounded-xl p-4 text-sm leading-relaxed about-description"
             style={{
               backgroundColor: 'var(--color-surface)',
               border: '1px solid var(--color-border)',
               color: 'var(--color-text-muted)',
             }}
           >
-            <div className="flex items-center gap-2 mb-2 text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--color-text-dim)' }}>
+            <h3 className="flex items-center gap-2 mb-2 text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--color-text-dim)' }}>
               <Code size={14} />
               About me
-            </div>
-            Student at Programming Technical School with AI specialization.
-            Building open-source tools, web applications, and exploring
-            software engineering and artificial intelligence.
-            Based in Silesia, Poland.
-          </motion.div>
+            </h3>
+            <p className="mb-2">
+              Nikodem Boryczka is a Full Stack Software Engineer and AI Developer from Silesia, Poland. He specializes in
+              Python (Flask, FastAPI), PostgreSQL, React, Docker, and Redis — building production-grade web applications,
+              REST APIs, and progressive web applications with layered architectures and modern DevOps practices.
+            </p>
+            <p className="mb-2">
+              Nikodem is currently a student at Programming Technical School with a specialization in Artificial Intelligence.
+              His portfolio includes open-source projects such as OSP Logbook (Flask + PostgreSQL + Docker fire brigade
+              management system), Gather (FastAPI + PostgreSQL + Redis event REST API), AlkoRater (iOS PWA for alcohol
+              cataloging), and UPM Ultras (fan club static website).
+            </p>
+            <p>
+              Nikodem focuses on solving practical engineering problems: database connection pooling, Redis caching with
+              graceful fallback, JWT authentication, rate limiting middleware, CI/CD pipelines, containerized deployments,
+              and automated testing with pytest and testcontainers. He follows clean code principles, layered architecture
+              patterns, and believes in building maintainable, testable, accessible software.
+            </p>
+          </motion.section>
 
-          <motion.div
+          <motion.section
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.08, duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
           >
-            <div className="flex items-center gap-2 mb-2 text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--color-text-dim)' }}>
+            <h3 className="flex items-center gap-2 mb-2 text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--color-text-dim)' }}>
               <HardDrives size={14} />
               System info
-            </div>
+            </h3>
             <div className="space-y-px">
               {specs.map((spec, i) => (
                 <motion.div
@@ -94,17 +108,18 @@ export default function AboutWindow() {
                 </motion.div>
               ))}
             </div>
-          </motion.div>
+          </motion.section>
 
-          <motion.div
+          <motion.section
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
+            id="skills"
           >
-            <div className="flex items-center gap-2 mb-2 text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--color-text-dim)' }}>
+            <h3 className="flex items-center gap-2 mb-2 text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--color-text-dim)' }}>
               <Cpu size={14} />
               Dev stack
-            </div>
+            </h3>
             <div
               className="rounded-xl p-3.5"
               style={{ backgroundColor: 'var(--color-surface)', border: '1px solid var(--color-border)' }}
@@ -128,9 +143,9 @@ export default function AboutWindow() {
                 ))}
               </div>
             </div>
-          </motion.div>
+          </motion.section>
         </div>
       </div>
-    </div>
+    </article>
   )
 }

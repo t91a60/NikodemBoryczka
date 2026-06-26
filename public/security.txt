@@ -1,0 +1,4 @@
+Contact: mailto:t91a60@gmail.com
+Preferred-Languages: en, pl
+Canonical: https://t91a60.github.io/NikodemBoryczka/security.txt
+Expires: 2027-06-26T00:00:00.000Z

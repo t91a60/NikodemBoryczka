@@ -1,0 +1,90 @@
+# Nikodem Boryczka — Full Portfolio Context
+
+## Profile
+Nikodem Boryczka is an AI Developer and Software Engineer from Silesia, Poland. Currently a student at Programming Technical School with AI specialization. Open-source enthusiast building enterprise-grade tools and web applications.
+
+## Technical Expertise
+
+### Languages
+Python, JavaScript, TypeScript, SQL, HTML, CSS
+
+### Backend
+Flask, FastAPI, REST API design, JWT authentication, rate limiting, layered architecture (API → Service → Repository), SQLAlchemy 2.0, Alembic migrations, async patterns
+
+### Frontend
+React 19, React Hooks, motion (Framer Motion), Tailwind CSS v4, progressive web apps, offline-first architecture, glassmorphism design
+
+### DevOps & Infrastructure
+Docker, Docker Compose, Gunicorn, Render deployment, Linux administration, Git version control
+
+### Databases
+PostgreSQL (ThreadedConnectionPool), Redis (caching, fallback patterns), SQLite (testing)
+
+### Testing
+pytest, testcontainers, async tests with aiosqlite, CI/CD pipelines
+
+## Architecture Philosophy
+- Layered architectures with clear separation of concerns
+- Soft-delete patterns for data integrity
+- CSRF protection, rate limiting, audit logging
+- Graceful degradation with fallback mechanisms
+- Local-first data persistence
+- Service worker versioned cache strategies
+
+## Portfolio Site Details
+This portfolio is built as an interactive Ubuntu desktop simulator using React 19. Features include:
+- Canvas-based animated aurora background with performance detection
+- GNOME-style Activities Overview overlay
+- Functional terminal emulator with 20+ commands
+- Window management system (drag, resize, minimize, maximize)
+- Right-click desktop context menu
+- Notification system with toast animations
+- Mobile-responsive full-screen window adaptation
+- No external image dependencies — all visuals are CSS/canvas/SVG
+
+## Projects
+
+### OSP Logbook
+Full-stack web application for fire brigade logistics management.
+- Flask + PostgreSQL with ThreadedConnectionPool
+- Redis cache with OrderedDict fallback
+- Docker + Gunicorn + Render deployment
+- 40+ pytest tests with testcontainers
+- PWA with service worker offline support
+- Soft-delete, CSRF, rate limiting, audit log
+- GitHub: https://github.com/t91a60/osp-logbook
+
+### AlkoRater
+Premium iOS PWA for alcohol cataloging and rating.
+- iOS-native glassmorphism design language
+- Hardware-accelerated UI with haptic feedback
+- Service worker with versioned cache strategy
+- Local-first architecture with JSON persistence
+- Flexible schema normalization
+- Category-specific accent colors
+- GitHub: https://github.com/t91a60/alko-rater
+
+### Gather
+Event/social REST API with modern layered architecture.
+- FastAPI with auto-generated OpenAPI/Swagger
+- Layered architecture: API → Service → Repository
+- Async SQLAlchemy 2.0 + Alembic migrations
+- Redis caching with graceful fallback
+- JWT access + refresh token authentication
+- Rate limiting middleware (sliding window)
+- Docker + docker-compose deployment
+- Async pytest on aiosqlite in-memory
+- GitHub: https://github.com/t91a60/Gather
+
+### UPM Ultras
+Official fan club website for Ultras Polonia Międzyrzecze.
+- Responsive static site
+- CSS grid layout + mobile adaptation
+- Photo gallery with lightbox
+- Clear information hierarchy
+- GitHub: https://github.com/t91a60/upm-ultras
+
+## Contact
+- Email: t91a60@gmail.com
+- GitHub: https://github.com/t91a60
+- Portfolio: https://t91a60.github.io/NikodemBoryczka/

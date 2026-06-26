@@ -3,9 +3,9 @@ import { motion, AnimatePresence } from 'motion/react'
 import { MagnifyingGlass, Terminal, Folder, User, X } from '@phosphor-icons/react'
 
 const apps = [
-  { id: 'terminal', label: 'Terminal', icon: Terminal, desc: 'Command-line emulator' },
-  { id: 'projects', label: 'Projects', icon: Folder, desc: 'Browse portfolio projects' },
-  { id: 'about', label: 'About', icon: User, desc: 'System information' },
+  { id: 'terminal', label: 'Terminal', icon: Terminal, desc: 'Command-line emulator with 20+ commands' },
+  { id: 'projects', label: 'Projects', icon: Folder, desc: 'Browse portfolio projects and source code' },
+  { id: 'about', label: 'About', icon: User, desc: 'Developer profile and system information' },
 ]
 
 export default function ActivitiesOverview({ open, windows, minimizedWindows, onOpen, onCloseOverview }) {
@@ -60,6 +60,9 @@ export default function ActivitiesOverview({ open, windows, minimizedWindows, on
             alignItems: 'center',
             paddingTop: '10vh',
           }}
+          role="dialog"
+          aria-label="Activities overview"
+          aria-modal="true"
         >
           <div style={{ position: 'relative', width: '90%', maxWidth: 480 }}>
             <MagnifyingGlass
@@ -72,12 +75,14 @@ export default function ActivitiesOverview({ open, windows, minimizedWindows, on
                 color: 'var(--color-text-dim)',
                 pointerEvents: 'none',
               }}
+              aria-hidden="true"
             />
             <input
               ref={inputRef}
               value={query}
               onChange={e => setQuery(e.target.value)}
-              placeholder="Type to search…"
+              placeholder="Type to search apps…"
+              aria-label="Search applications"
               style={{
                 width: '100%',
                 padding: '14px 16px 14px 46px',
@@ -102,6 +107,8 @@ export default function ActivitiesOverview({ open, windows, minimizedWindows, on
               justifyContent: 'center',
               maxWidth: 700,
             }}
+            role="list"
+            aria-label="Available applications"
           >
             {filtered.map((app, i) => {
               const Icon = app.icon
@@ -131,6 +138,8 @@ export default function ActivitiesOverview({ open, windows, minimizedWindows, on
                   }}
                   onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'rgba(233,84,32,0.12)'; e.currentTarget.style.borderColor = 'var(--color-border-light)' }}
                   onMouseLeave={e => { e.currentTarget.style.backgroundColor = isOpen ? 'rgba(233,84,32,0.08)' : 'rgba(255,255,255,0.03)'; e.currentTarget.style.borderColor = isOpen ? 'var(--color-border-light)' : 'transparent' }}
+                  role="listitem"
+                  aria-label={`${app.label}: ${app.desc}${isMinimized ? ' (minimized)' : ''}`}
                 >
                   <Icon size={36} weight="duotone" style={{ color: 'var(--color-accent-bright)' }} />
                   <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-text)' }}>{app.label}</span>
@@ -161,6 +170,7 @@ export default function ActivitiesOverview({ open, windows, minimizedWindows, on
               alignItems: 'center',
               gap: 6,
             }}
+            aria-label="Close activities overview"
           >
             <X size={14} />
             Close Overview

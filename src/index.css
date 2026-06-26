@@ -8,8 +8,8 @@
   --color-border: #4a2842;
   --color-border-light: #6a3a5a;
   --color-text: #eee8ee;
-  --color-text-muted: #c4aec0;
-  --color-text-dim: #8a6a82;
+  --color-text-muted: #d8c2d4;
+  --color-text-dim: #a08296;
   --color-accent: #E95420;
   --color-accent-bright: #ff7a3d;
   --color-accent-purple: #b070a8;
@@ -263,6 +263,36 @@ button:active {
 @keyframes skeletonPulse {
   0%, 100% { opacity: 0.35; }
   50% { opacity: 0.55; }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  whiteSpace: nowrap;
+  border: 0;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-light);
 }
 
 @media (prefers-reduced-motion: reduce) {

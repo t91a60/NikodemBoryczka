@@ -35,6 +35,8 @@ export default function ContextMenu({ x, y, onClose, onAction }) {
   return (
     <div
       ref={ref}
+      role="menu"
+      aria-label="Desktop context menu"
       style={{
         position: 'fixed',
         left: menuX,
@@ -55,6 +57,7 @@ export default function ContextMenu({ x, y, onClose, onAction }) {
           return (
             <div
               key={`sep-${i}`}
+              role="separator"
               style={{
                 height: 1,
                 margin: '4px 8px',
@@ -67,6 +70,7 @@ export default function ContextMenu({ x, y, onClose, onAction }) {
         return (
           <button
             key={item.id}
+            role="menuitem"
             onClick={() => { onAction(item.id); onClose() }}
             style={{
               display: 'flex',

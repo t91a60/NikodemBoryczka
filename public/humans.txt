@@ -1,0 +1,21 @@
+/* TEAM */
+
+Developer: Nikodem Boryczka
+Contact: t91a60@gmail.com
+Location: Silesia, Poland
+Role: AI Developer & Software Engineer
+
+/* SITE */
+
+Framework: React 19
+Build: Vite
+Styles: Tailwind CSS v4
+Animation: motion
+Deployment: GitHub Pages
+Repository: https://github.com/t91a60/t91a60.github.io
+
+/* THANKS */
+
+Ubuntu — for the design inspiration
+GNOME — for the desktop metaphor
+Open source community — for everything else

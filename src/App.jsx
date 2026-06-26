@@ -7,6 +7,7 @@ import Dock from './components/Dock.jsx'
 import Background from './components/Background.jsx'
 import ActivitiesOverview from './components/ActivitiesOverview.jsx'
 import ContextMenu from './components/ContextMenu.jsx'
+import JsonLdInjector from './components/JsonLdInjector.jsx'
 import { NotificationProvider } from './components/NotificationCenter.jsx'
 import { useNotify } from './hooks/useNotify.js'
 import WindowErrorBoundary from './components/ErrorBoundary.jsx'
@@ -63,7 +64,7 @@ function savePosition(id, { left, top }) {
 
 function WindowFallback() {
   return (
-    <div className="p-4 space-y-3 skeleton-pulse">
+    <div className="p-4 space-y-3 skeleton-pulse" role="status" aria-label="Loading window content">
       <div className="flex items-center gap-1.5 pb-3" style={{ borderBottom: '1px solid var(--color-border)' }}>
         <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: 'var(--color-accent)' }} />
         <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: 'var(--color-warning)' }} />
@@ -75,6 +76,7 @@ function WindowFallback() {
         <div className="h-3 rounded" style={{ backgroundColor: 'var(--color-border)', width: '64%' }} />
         <div className="h-3 rounded" style={{ backgroundColor: 'var(--color-border)', width: '38%' }} />
       </div>
+      <span className="sr-only">Loading...</span>
     </div>
   )
 }
@@ -244,9 +246,14 @@ function AppContent() {
         paddingTop: 36,
       }}
     >
+      <a href="#main-content" className="skip-link" aria-label="Skip to main content">
+        Skip to content
+      </a>
+
       <Background />
 
       <h1
+        className="sr-only"
         style={{
           position: 'absolute',
           width: '1px',
@@ -259,7 +266,7 @@ function AppContent() {
           border: 0,
         }}
       >
-        Nikodem Boryczka - Ubuntu desktop portfolio
+        Nikodem Boryczka — AI Developer & Software Engineer Portfolio — Ubuntu desktop simulator
       </h1>
 
       <TopBar
@@ -267,7 +274,7 @@ function AppContent() {
         minimizedWindows={minimizedWindows}
       />
 
-      <div
+      <main
         id="main-content"
         tabIndex={-1}
         style={{
@@ -307,7 +314,7 @@ function AppContent() {
         </AnimatePresence>
 
         {!isMobile() && (
-          <div className="desktop-sidebar" style={{
+          <nav className="desktop-sidebar" aria-label="Desktop shortcuts" style={{
             position: 'absolute',
             left: 12,
             top: 16,
@@ -327,13 +334,14 @@ function AppContent() {
                     color: windows[item.id] ? 'var(--color-accent-bright)' : 'var(--color-text-dim)',
                     width: 68,
                   }}
+                  aria-label={`Open ${item.label}`}
                 >
                   <Icon size={24} weight={windows[item.id] ? 'fill' : 'regular'} />
                   <span className="text-[10px] font-medium leading-tight truncate w-full">{item.label}</span>
                 </button>
               )
             })}
-          </div>
+          </nav>
         )}
 
         <Dock
@@ -349,7 +357,7 @@ function AppContent() {
           openWindows={Object.keys(windows)}
           minimizedWindows={minimizedWindows}
         />
-      </div>
+      </main>
 
       <ActivitiesOverview
         open={overviewOpen}
@@ -382,6 +390,7 @@ function AppContent() {
 export default function App() {
   return (
     <NotificationProvider>
+      <JsonLdInjector />
       <AppContent />
     </NotificationProvider>
   )

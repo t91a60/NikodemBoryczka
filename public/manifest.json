@@ -1,13 +1,14 @@
 {
-  "name": "Nikodem Boryczka — dev desktop",
+  "name": "Nikodem Boryczka — AI Developer & Software Engineer",
   "short_name": "Nikodem",
-  "description": "AI Developer & Software Engineer portfolio",
+  "description": "AI Developer & Software Engineer portfolio — interactive Ubuntu desktop simulator showcasing Python, Flask, React, Docker, and PostgreSQL projects.",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#1c0a18",
-  "theme_color": "#1c0a18",
+  "theme_color": "#E95420",
   "orientation": "any",
-  "categories": ["portfolio", "developer", "technology"],
+  "categories": ["portfolio", "developer", "technology", "software engineering"],
+  "lang": "en",
   "icons": [
     {
       "src": "icon-192.svg",

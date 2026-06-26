@@ -16,6 +16,8 @@ export default class WindowErrorBoundary extends Component {
         <div
           className="flex flex-col items-center justify-center h-full p-6 text-center"
           style={{ backgroundColor: 'var(--color-surface-window)' }}
+          role="alert"
+          aria-live="assertive"
         >
           <div
             className="w-12 h-12 rounded-xl flex items-center justify-center mb-3 text-lg font-bold"
@@ -23,9 +25,9 @@ export default class WindowErrorBoundary extends Component {
           >
             !
           </div>
-          <h3 className="text-sm font-bold mb-1" style={{ color: 'var(--color-text)' }}>
+          <h2 className="text-sm font-bold mb-1" style={{ color: 'var(--color-text)' }}>
             {this.props.title} crashed
-          </h3>
+          </h2>
           <p className="text-xs" style={{ color: 'var(--color-text-dim)' }}>
             {this.state.error?.message || 'An unexpected error occurred'}
           </p>
