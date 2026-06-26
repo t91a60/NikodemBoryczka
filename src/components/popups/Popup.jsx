@@ -1,14 +1,15 @@
 import { useEffect, useRef } from 'react'
+import { motion } from 'motion/react'
 
 export default function Popup({ children, onClose }) {
   const ref = useRef(null)
 
   useEffect(() => {
     function handleClick(e) {
-      if (ref.current && !ref.current.contains(e.target)) onClose()
+      if (ref.current && !ref.current.contains(e.target)) onClose?.()
     }
     function handleKey(e) {
-      if (e.key === 'Escape') onClose()
+      if (e.key === 'Escape') onClose?.()
     }
     document.addEventListener('mousedown', handleClick)
     document.addEventListener('keydown', handleKey)
@@ -19,26 +20,30 @@ export default function Popup({ children, onClose }) {
   }, [onClose])
 
   return (
-    <div
+    <motion.div
       ref={ref}
-      className="popup"
+      initial={{ opacity: 0, scale: 0.95, y: -6 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.95, y: -6 }}
+      transition={{ duration: 0.15, ease: [0.23, 1, 0.32, 1] }}
       style={{
         position: 'absolute',
         top: '100%',
         right: 0,
-        marginTop: 4,
+        marginTop: 6,
         minWidth: 180,
-        backgroundColor: '#1a0e18',
+        backgroundColor: 'rgba(20, 10, 18, 0.96)',
         border: '1px solid var(--color-border)',
         borderRadius: 10,
-        boxShadow: '0 12px 40px rgba(0,0,0,0.5)',
-        backdropFilter: 'blur(16px)',
-        WebkitBackdropFilter: 'blur(16px)',
+        boxShadow: '0 16px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(233,84,32,0.05)',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
         zIndex: 400,
         overflow: 'hidden',
+        transformOrigin: 'top right',
       }}
     >
       {children}
-    </div>
+    </motion.div>
   )
 }

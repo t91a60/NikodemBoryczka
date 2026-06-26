@@ -243,7 +243,7 @@ function AppContent() {
         backgroundColor: 'var(--color-bg)',
         position: 'relative',
         overflow: 'hidden',
-        paddingTop: 36,
+        paddingTop: 40,
       }}
     >
       <a href="#main-content" className="skip-link" aria-label="Skip to main content">
@@ -271,7 +271,20 @@ function AppContent() {
 
       <TopBar
         onActivitiesClick={() => setOverviewOpen(true)}
+        windows={windows}
         minimizedWindows={minimizedWindows}
+        activeWindow={activeWindow}
+        onAppClick={(id) => {
+          if (minimizedWindows[id]) {
+            restoreWindow(id)
+          } else if (windows[id]) {
+            if (activeWindow === id) {
+              minimizeWindow(id)
+            } else {
+              focusWindow(id)
+            }
+          }
+        }}
       />
 
       <main
@@ -289,7 +302,7 @@ function AppContent() {
             const config = windowConfigs[id]
             const Component = config.component
             return (
-              <div key={id} id={`window-${id}`} style={isMobile() ? { position: 'fixed', inset: 0, zIndex: zIndices[id], paddingTop: 36 } : undefined}>
+              <div key={id} id={`window-${id}`} style={isMobile() ? { position: 'fixed', inset: 0, zIndex: zIndices[id], paddingTop: 40 } : undefined}>
                 <Window
                   id={id}
                   title={config.title}
