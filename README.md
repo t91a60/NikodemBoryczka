@@ -1,8 +1,8 @@
-# dev-desktop
+# NikodemBoryczka — Dev Desktop
 
-A macOS-inspired desktop environment built in the browser as a developer portfolio. Simulates an Ubuntu GNOME desktop with draggable windows, a dock, system tray, and an interactive terminal — all rendered in React.
+An interactive developer portfolio built as an Ubuntu desktop-inspired experience in the browser. It combines draggable windows, a dock, system tray, project browser, and simulated terminal in a React application.
 
-**[Live demo](https://t91a60.github.io/NikodemBoryczka/)**
+[Live demo](https://t91a60.github.io/NikodemBoryczka/) · [Report an issue](https://github.com/t91a60/NikodemBoryczka/issues)
 
 ## Features
 
@@ -14,9 +14,9 @@ A macOS-inspired desktop environment built in the browser as a developer portfol
 
 **About section** — styled as a system information panel with user specs, a dev stack tag cloud, and staggered entrance animations.
 
-**PWA support** — installable as a standalone app with a service worker, manifest, and offline-ready shell.
+**Web app metadata** — manifest, icons, mobile meta tags, Open Graph data, canonical URL, `robots.txt`, sitemap, and a GitHub Pages fallback page.
 
-**Accessibility** — keyboard shortcuts (Cmd+1/2/3 to switch windows, Cmd+W or Escape to close), skip-navigation link, ARIA labels, focus-visible outlines, reduced-motion support, and semantic roles on interactive widgets.
+**Accessibility** — keyboard shortcuts (`Ctrl`/`Cmd` + `1`–`3` to focus windows, `Ctrl`/`Cmd` + `W` or `Escape` to close), skip-navigation link, ARIA labels, focus-visible outlines, reduced-motion support, and semantic roles on interactive widgets.
 
 **Responsive** — adapts to mobile viewports by collapsing the sidebar, adjusting the top bar, and enabling vertical scrolling. Touch-friendly on small screens.
 
@@ -62,7 +62,7 @@ public/
 ## Getting Started
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
@@ -72,6 +72,7 @@ Opens at `http://localhost:5173`.
 
 ```bash
 npm run build
+npm run lint
 ```
 
 Output goes to `dist/`. Use `npm run preview` to test the production build locally.
@@ -81,3 +82,7 @@ Output goes to `dist/`. Use `npm run preview` to test the production build local
 Push to `main` — the GitHub Actions workflow at `.github/workflows/deploy.yml` builds the project and deploys to GitHub Pages automatically.
 
 The site is served from the `t91a60.github.io` domain under the `/NikodemBoryczka/` path. The `base` in `vite.config.js` and the `404.html` redirect are configured accordingly.
+
+## License
+
+This repository does not currently include a license file. Contact the repository owner before reusing the code or visual assets outside the project.
