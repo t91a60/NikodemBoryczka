@@ -13,7 +13,7 @@
   --color-accent: #E95420;
   --color-accent-bright: #ff7a3d;
   --color-accent-purple: #b070a8;
-  --color-success: #0E8420;
+  --color-success: #0E8420; /* icon/indicator only: 4.01:1 on popup bg passes non-text 3:1, FAILS normal-text 4.5:1; never for body text */
   --color-warning: #F99B11;
   --color-danger: #c7162b;
   --font-sans: 'Ubuntu', 'Segoe UI', system-ui, sans-serif;
@@ -320,9 +320,25 @@ button:focus:not(:focus-visible) {
     padding: 6px 8px;
   }
 
+  /* Mobile tap targets: tray hitbox grows to the 44px minimum via ::after, with spacing so hit areas never overlap. */
+  .top-bar {
+    height: 44px;
+  }
+
+  .topbar-tray {
+    gap: 4px;
+  }
+
   .tray-btn {
-    width: 26px;
-    height: 26px;
+    position: relative;
+    width: 40px;
+    height: 40px;
+  }
+
+  .tray-btn::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
   }
 
   .tray-btn svg {
@@ -361,11 +377,6 @@ button:focus:not(:focus-visible) {
   .topbar-clock {
     font-size: 11px !important;
     padding: 4px 4px !important;
-  }
-
-  .tray-btn {
-    width: 24px;
-    height: 24px;
   }
 
   html {

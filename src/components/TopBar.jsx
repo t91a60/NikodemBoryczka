@@ -6,6 +6,7 @@ import {
 } from '@phosphor-icons/react'
 import { useNotify } from '../hooks/useNotify.js'
 import TaskbarAppButton from './TaskbarAppButton.jsx'
+import LockScreen from './LockScreen.jsx'
 import { Popup, WifiPopup, SpeakerPopup, BatteryPopup, UserPopup } from './popups/index.js'
 
 const appMeta = {
@@ -20,10 +21,12 @@ export default function TopBar({
   minimizedWindows = {},
   activeWindow,
   onAppClick,
+  onFocusApp,
 }) {
   const [time, setTime] = useState(new Date())
   const [openPopup, setOpenPopup] = useState(null)
-  const { toasts } = useNotify()
+  const [locked, setLocked] = useState(false)
+  const { toasts, clearAll } = useNotify()
 
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000)
@@ -57,6 +60,7 @@ export default function TopBar({
             const meta = appMeta[id]
             if (!meta) return null
             return (
+              // Enter/exit slide-in gives newly opened apps a brief mounting gesture (MOTION dial, see DESIGN.md).
               <motion.div
                 key={id}
                 initial={{ opacity: 0, scale: 0.8, width: 0 }}
@@ -100,7 +104,7 @@ export default function TopBar({
             <AnimatePresence>
               {openPopup === 'notifications' && (
                 <Popup key="notif-popup" onClose={closePopup}>
-                  <NotificationsPopup toasts={toasts} onClose={closePopup} />
+                  <NotificationsPopup toasts={toasts} onClear={clearAll} />
                 </Popup>
               )}
             </AnimatePresence>
@@ -132,11 +136,22 @@ export default function TopBar({
           <TrayItem>
             <TrayButton icon={UserCircle} setActive={openPopup === 'user'} label="User menu" onClick={() => toggle('user')} highlight />
             <AnimatePresence>
-              {openPopup === 'user' && <Popup key="user-popup" onClose={closePopup}><UserPopup /></Popup>}
+              {openPopup === 'user' && (
+                <Popup key="user-popup" onClose={closePopup}>
+                  <UserPopup
+                    onOpenApp={(id) => { closePopup(); onFocusApp?.(id) }}
+                    onLock={() => { closePopup(); setLocked(true) }}
+                  />
+                </Popup>
+              )}
             </AnimatePresence>
           </TrayItem>
         </div>
       </div>
+
+      <AnimatePresence>
+        {locked && <LockScreen key="lock-screen" onUnlock={() => setLocked(false)} />}
+      </AnimatePresence>
     </div>
   )
 }
@@ -174,7 +189,7 @@ function TraySeparator() {
   return <div className="tray-sep" role="separator" aria-orientation="vertical" />
 }
 
-function NotificationsPopup({ toasts, onClose }) {
+function NotificationsPopup({ toasts, onClear }) {
   if (!toasts || toasts.length === 0) {
     return (
       <div className="p-6 text-center">
@@ -190,7 +205,7 @@ function NotificationsPopup({ toasts, onClose }) {
         <button
           className="text-[10px] font-medium cursor-pointer transition-colors"
           style={{ color: 'var(--color-accent)', background: 'none', border: 'none' }}
-          onClick={() => onClose?.()}
+          onClick={onClear}
         >
           Clear all
         </button>

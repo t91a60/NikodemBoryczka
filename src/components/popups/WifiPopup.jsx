@@ -1,5 +1,6 @@
 import { WifiHigh, WifiSlash, CheckCircle } from '@phosphor-icons/react'
 
+// Simulated network list, consistent with the desktop-simulator product (see DESIGN.md).
 const networks = [
   { name: 'Orange Fiber', secured: true, strength: 4 },
   { name: 'Play 5G', secured: true, strength: 3 },

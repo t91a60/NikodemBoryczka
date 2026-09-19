@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 CLAUDE-FABLE-5.md
 OCENA-PROJEKTU.md
+AGENTS.md
+DESIGN.md
+/anti-slop

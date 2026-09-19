@@ -2,6 +2,7 @@ import { motion } from 'motion/react'
 import { BatteryFull, Lightning } from '@phosphor-icons/react'
 
 export default function BatteryPopup() {
+  // Simulated OS status, consistent with the desktop-simulator product (see DESIGN.md).
   const percent = 87
   const charging = true
   const timeRemaining = '2h 14m'
@@ -17,7 +18,7 @@ export default function BatteryPopup() {
         <div className="flex-1">
           <div className="text-sm font-semibold" style={{ color: 'var(--color-text)' }}>{percent}%</div>
           <div className="text-[11px]" style={{ color: 'var(--color-text-dim)' }}>
-            {charging ? `Charging \u2014 ${timeRemaining} until full` : `${timeRemaining} remaining`}
+            {charging ? `Charging: ${timeRemaining} until full` : `${timeRemaining} remaining`}
           </div>
         </div>
       </div>
