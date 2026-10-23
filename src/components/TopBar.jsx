@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { motion, AnimatePresence } from 'motion/react'
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
 import {
   Terminal, Folder, User,
   WifiHigh, SpeakerHigh, BatteryFull, UserCircle, Bell, BellRinging,
@@ -24,6 +24,7 @@ export default function TopBar({
   onFocusApp,
 }) {
   const [time, setTime] = useState(new Date())
+  const reducedMotion = useReducedMotion()
   const [openPopup, setOpenPopup] = useState(null)
   const [locked, setLocked] = useState(false)
   const { toasts, clearAll } = useNotify()
@@ -63,10 +64,10 @@ export default function TopBar({
               // Enter/exit slide-in gives newly opened apps a brief mounting gesture (MOTION dial, see DESIGN.md).
               <motion.div
                 key={id}
-                initial={{ opacity: 0, scale: 0.8, width: 0 }}
+                initial={reducedMotion ? false : { opacity: 0, scale: 0.8, width: 0 }}
                 animate={{ opacity: 1, scale: 1, width: 'auto' }}
-                exit={{ opacity: 0, scale: 0.8, width: 0 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                exit={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.8, width: 0 }}
+                transition={reducedMotion ? { duration: 0 } : { type: 'spring', stiffness: 400, damping: 30 }}
                 style={{ overflow: 'hidden', display: 'flex' }}
               >
                 <TaskbarAppButton

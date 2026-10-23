@@ -1,27 +1,15 @@
-import { useEffect, useRef } from 'react'
 import { motion } from 'motion/react'
+import { useDismissableLayer } from '../../hooks/useDismissableLayer.js'
 
 export default function Popup({ children, onClose }) {
-  const ref = useRef(null)
-
-  useEffect(() => {
-    function handleClick(e) {
-      if (ref.current && !ref.current.contains(e.target)) onClose?.()
-    }
-    function handleKey(e) {
-      if (e.key === 'Escape') onClose?.()
-    }
-    document.addEventListener('mousedown', handleClick)
-    document.addEventListener('keydown', handleKey)
-    return () => {
-      document.removeEventListener('mousedown', handleClick)
-      document.removeEventListener('keydown', handleKey)
-    }
-  }, [onClose])
+  const ref = useDismissableLayer(onClose)
 
   return (
     <motion.div
       ref={ref}
+      className="system-popup"
+      data-dismissable-layer="popup"
+      tabIndex={-1}
       initial={{ opacity: 0, scale: 0.95, y: -6 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.95, y: -6 }}

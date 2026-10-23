@@ -1,42 +1,39 @@
-import { useEffect, useRef } from 'react'
 import { Terminal, Folder, User, ArrowsOutSimple } from '@phosphor-icons/react'
+import { useDismissableLayer } from '../hooks/useDismissableLayer.js'
 
 const items = [
   { id: 'terminal', label: 'Open Terminal', icon: Terminal },
-  { id: 'projects', label: 'New Projects Window', icon: Folder },
+  { id: 'projects', label: 'Open Projects', icon: Folder },
   { id: 'about', label: 'View About', icon: User },
   { type: 'separator' },
   { id: 'arrange', label: 'Arrange Windows', icon: ArrowsOutSimple },
 ]
 
 export default function ContextMenu({ x, y, onClose, onAction }) {
-  const ref = useRef(null)
+  const ref = useDismissableLayer(onClose)
 
-  useEffect(() => {
-    function handler(e) {
-      if (ref.current && !ref.current.contains(e.target)) {
-        onClose()
-      }
-    }
-    function keyHandler(e) {
-      if (e.key === 'Escape') onClose()
-    }
-    document.addEventListener('mousedown', handler)
-    document.addEventListener('keydown', keyHandler)
-    return () => {
-      document.removeEventListener('mousedown', handler)
-      document.removeEventListener('keydown', keyHandler)
-    }
-  }, [onClose])
-
-  const menuX = Math.min(x, window.innerWidth - 200)
-  const menuY = Math.min(y, window.innerHeight - 220)
+  const menuX = Math.max(0, Math.min(x, window.innerWidth - 200))
+  const menuY = Math.max(0, Math.min(y, window.innerHeight - 240))
 
   return (
     <div
       ref={ref}
+      data-dismissable-layer="context-menu"
       role="menu"
       aria-label="Desktop context menu"
+      onKeyDown={(event) => {
+        const buttons = Array.from(ref.current.querySelectorAll('[role="menuitem"]'))
+        const index = buttons.indexOf(document.activeElement)
+        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+          event.preventDefault()
+          buttons[(index + (event.key === 'ArrowDown' ? 1 : -1) + buttons.length) % buttons.length]?.focus()
+        } else if (event.key === 'Home' || event.key === 'End') {
+          event.preventDefault()
+          buttons[event.key === 'Home' ? 0 : buttons.length - 1]?.focus()
+        } else if (event.key === 'Tab') {
+          onClose()
+        }
+      }}
       style={{
         position: 'fixed',
         left: menuX,
@@ -44,12 +41,10 @@ export default function ContextMenu({ x, y, onClose, onAction }) {
         zIndex: 600,
         minWidth: 200,
         padding: '4px 0',
-        backgroundColor: 'rgba(22, 10, 20, 0.95)',
+        backgroundColor: 'var(--color-surface)',
         border: '1px solid var(--color-border)',
         borderRadius: 10,
         boxShadow: '0 12px 48px rgba(0,0,0,0.5)',
-        backdropFilter: 'blur(20px)',
-        WebkitBackdropFilter: 'blur(20px)',
       }}
     >
       {items.map((item, i) => {

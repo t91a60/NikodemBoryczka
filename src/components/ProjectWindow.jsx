@@ -11,20 +11,31 @@ const projectColors = {
 }
 
 export default function ProjectWindow() {
-  const [activeId, setActiveId] = useState(projects[0].id)
+  const [activeId, setActiveId] = useState(projects[0]?.id)
   const project = projects.find(p => p.id === activeId)
   const colors = projectColors[activeId] || projectColors['osp-logbook']
 
   return (
-    <div className="flex h-full" role="region" aria-label="Portfolio projects">
+    <div className="project-window" role="region" aria-label="Portfolio projects">
       <div
-        className="w-44 shrink-0 overflow-y-auto flex flex-col"
+        className="project-sidebar"
         style={{
           backgroundColor: 'var(--color-surface)',
           borderRight: '1px solid var(--color-border)',
         }}
         role="tablist"
         aria-label="Project list"
+        aria-orientation="vertical"
+        onKeyDown={(event) => {
+          const keys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Home', 'End']
+          if (!keys.includes(event.key) || projects.length === 0) return
+          event.preventDefault()
+          const index = projects.findIndex(p => p.id === activeId)
+          const next = event.key === 'Home' ? 0 : event.key === 'End' ? projects.length - 1 :
+            (index + (event.key === 'ArrowUp' || event.key === 'ArrowLeft' ? -1 : 1) + projects.length) % projects.length
+          setActiveId(projects[next].id)
+          event.currentTarget.querySelectorAll('[role="tab"]')[next]?.focus()
+        }}
       >
         <div className="px-3.5 py-2.5 text-[10px] font-bold uppercase tracking-[0.15em]" style={{ color: 'var(--color-text-dim)' }}>
           Projects
@@ -38,11 +49,13 @@ export default function ProjectWindow() {
               onClick={() => setActiveId(p.id)}
               className="flex items-center gap-2.5 w-full px-3.5 py-2.5 text-left transition-all cursor-pointer"
               style={{
-                color: isActive ? c.primary : 'var(--color-text-muted)',
+                color: isActive ? 'var(--color-text)' : 'var(--color-text-muted)',
                 backgroundColor: isActive ? c.bg : 'transparent',
                 borderLeft: isActive ? `2px solid ${c.primary}` : '2px solid transparent',
               }}
               role="tab"
+              id={`project-tab-${p.id}`}
+              tabIndex={isActive ? 0 : -1}
               aria-selected={isActive}
               aria-controls={`project-panel-${p.id}`}
             >
@@ -61,12 +74,12 @@ export default function ProjectWindow() {
         <div className="mt-auto px-3.5 py-2.5 border-t" style={{ borderColor: 'var(--color-border)' }}>
           <div className="flex items-center gap-2 text-[10px]" style={{ color: 'var(--color-text-dim)' }}>
             <GitFork size={12} />
-            <span>4 repositories</span>
+            <span>{projects.length} repositories</span>
           </div>
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto">
+      <div className="project-detail">
         <AnimatePresence mode="wait">
           {project && (
             <motion.article
@@ -75,13 +88,13 @@ export default function ProjectWindow() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.15, ease: [0.23, 1, 0.32, 1] }}
-              className="p-5"
+              className="project-article"
               id={`project-panel-${project.id}`}
               role="tabpanel"
-              aria-label={project.title}
+              aria-labelledby={`project-tab-${project.id}`}
             >
-              <div className="flex items-start justify-between gap-4 mb-4">
-                <div className="flex items-start gap-3">
+              <div className="project-heading">
+                <div className="flex items-start gap-3 min-w-0">
                   <div
                     className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
                     style={{ backgroundColor: colors.bg }}
@@ -89,7 +102,7 @@ export default function ProjectWindow() {
                   >
                     <Code size={20} weight="duotone" style={{ color: colors.primary }} />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <h2 className="text-sm font-bold" style={{ color: 'var(--color-text)' }}>
                       {project.title}
                     </h2>
@@ -104,7 +117,7 @@ export default function ProjectWindow() {
                   rel="noopener noreferrer"
                   className="flex items-center gap-1.5 shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all"
                   style={{
-                    color: colors.primary,
+                    color: 'var(--color-text)',
                     backgroundColor: colors.bg,
                     border: `1px solid ${colors.border}`,
                   }}
@@ -158,6 +171,7 @@ export default function ProjectWindow() {
             </motion.article>
           )}
         </AnimatePresence>
+        {!project && <p className="p-5 text-sm" role="status">No projects are available. Visit the GitHub profile from About to see the latest repositories.</p>}
       </div>
     </div>
   )

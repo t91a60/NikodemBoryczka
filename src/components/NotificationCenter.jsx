@@ -37,11 +37,11 @@ export function NotificationProvider({ children }) {
           position: 'fixed',
           top: 44,
           right: 12,
-          zIndex: 450,
+          zIndex: 250,
           display: 'flex',
           flexDirection: 'column',
           gap: 8,
-          maxWidth: 340,
+          maxWidth: 'min(340px, calc(100vw - 24px))',
           pointerEvents: 'none',
         }}
       >
@@ -57,10 +57,8 @@ export function NotificationProvider({ children }) {
                 pointerEvents: 'auto',
                 padding: '10px 14px',
                 borderRadius: 10,
-                backgroundColor: 'rgba(22, 10, 24, 0.95)',
+                backgroundColor: 'var(--color-surface)',
                 border: '1px solid var(--color-border-light)',
-                backdropFilter: 'blur(12px)',
-                WebkitBackdropFilter: 'blur(12px)',
                 display: 'flex',
                 alignItems: 'center',
                 gap: 10,
@@ -68,8 +66,10 @@ export function NotificationProvider({ children }) {
               }}
             >
               {t.icon || <BellRinging size={14} style={{ color: 'var(--color-accent)', flexShrink: 0 }} />}
-              <span style={{ fontSize: 12, color: 'var(--color-text-muted)', flex: 1 }}>{t.message}</span>
+              <span role="status" style={{ fontSize: 12, color: 'var(--color-text-muted)', flex: 1 }}>{t.message}</span>
               <button
+                aria-label="Dismiss notification"
+                className="notification-dismiss"
                 onClick={() => dismiss(t.id)}
                 style={{
                   background: 'none',

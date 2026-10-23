@@ -20,6 +20,8 @@ An interactive developer portfolio built as an Ubuntu desktop-inspired experienc
 
 **Responsive** — adapts to mobile viewports by collapsing the sidebar, adjusting the top bar, and enabling vertical scrolling. Touch-friendly on small screens.
 
+Window controls use 28px pointer targets and 44px touch targets. Activities and the lock screen use native modal dialogs with focus containment and return. Escape dismisses an open popup before it can close a window. Focus a window title bar and press `Alt` + arrow keys to move it; focus the desktop and press `Shift` + `F10` for its context menu. Arrange Windows restores open windows to a bounded cascade. Reduced motion, reduced transparency, and increased contrast preferences are supported.
+
 ## Tech Stack
 
 **Framework** — React 19 with Vite 8, lazy-loaded route components via `React.lazy` and `Suspense`.
@@ -73,6 +75,7 @@ Opens at `http://localhost:5173`.
 ```bash
 npm run build
 npm run lint
+npm test
 ```
 
 Output goes to `dist/`. Use `npm run preview` to test the production build locally.

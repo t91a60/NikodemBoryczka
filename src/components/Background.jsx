@@ -10,11 +10,8 @@ export default function Background() {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const isMobile = window.innerWidth <= 640
-    const isLowPerf = isMobile || prefersReduced
 
-    let animId
     let w = window.innerWidth
     let h = window.innerHeight
 
@@ -32,6 +29,7 @@ export default function Background() {
         blob.x = clamp(blob.x, -blob.radius, w + blob.radius)
         blob.y = clamp(blob.y, -blob.radius, h + blob.radius)
       }
+      render()
     }
 
     function clamp(val, min, max) {
@@ -42,12 +40,10 @@ export default function Background() {
     const ACCENT = { r: 233, g: 84, b: 32 }
     const PURPLE = { r: 176, g: 112, b: 168 }
 
-    const blobCount = isLowPerf ? 3 : 5
+    const blobCount = isMobile ? 3 : 5
     const blobs = Array.from({ length: blobCount }, (_, i) => ({
       x: w * (0.15 + i * 0.18),
       y: h * (0.15 + i * 0.2),
-      vx: (Math.sin(i * 50) * 0.06 + 0.01) * (isLowPerf ? 0 : 1),
-      vy: (Math.cos(i * 70) * 0.04 + 0.01) * (isLowPerf ? 0 : 1),
       radius: 180 + i * 60,
       color: i % 2 === 0 ? ACCENT : PURPLE,
       alpha: 0.05 + i * 0.008,
@@ -57,18 +53,6 @@ export default function Background() {
       ctx.clearRect(0, 0, w, h)
 
       for (const blob of blobs) {
-        if (!isLowPerf) {
-          blob.x += blob.vx
-          blob.y += blob.vy
-
-          const m = blob.radius
-          if (blob.x < -m || blob.x > w + m) blob.vx *= -1
-          if (blob.y < -m || blob.y > h + m) blob.vy *= -1
-
-          blob.x = clamp(blob.x, -m, w + m)
-          blob.y = clamp(blob.y, -m, h + m)
-        }
-
         const r = blob.radius
         if (!isFinite(blob.x) || !isFinite(blob.y) || !isFinite(r) || r <= 0) continue
 
@@ -83,17 +67,13 @@ export default function Background() {
         ctx.fill()
       }
 
-      if (!isLowPerf) {
-        animId = requestAnimationFrame(render)
-      }
     }
 
-    render()
+    resize()
 
     window.addEventListener('resize', resize)
 
     return () => {
-      cancelAnimationFrame(animId)
       window.removeEventListener('resize', resize)
     }
   }, [])

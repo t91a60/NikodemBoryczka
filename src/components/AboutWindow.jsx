@@ -14,9 +14,9 @@ export default function AboutWindow() {
   const stack = ['Python', 'Flask', 'PostgreSQL', 'Docker', 'React', 'JavaScript', 'PWA', 'Linux', 'Git', 'TypeScript', 'Redis']
 
   return (
-    <article className="flex flex-col h-full font-sans" aria-label="About Nikodem Boryczka">
+    <article className="about-window flex flex-col h-full font-sans" aria-label="About Nikodem Boryczka">
       <div
-        className="flex items-center gap-4 px-5 py-4"
+        className="about-header flex items-center gap-4 px-5 py-4"
         style={{
           background: 'linear-gradient(135deg, rgba(233,84,32,0.06), rgba(176,112,168,0.04))',
           borderBottom: '1px solid var(--color-border)',
@@ -95,7 +95,7 @@ export default function AboutWindow() {
                   initial={{ opacity: 0, x: -4 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.1 + i * 0.04, duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
-                  className="flex items-center gap-3 px-3.5 py-2 rounded-lg text-xs"
+                  className="about-spec-row flex items-center gap-3 px-3.5 py-2 rounded-lg text-xs"
                   style={{
                     backgroundColor: 'var(--color-surface)',
                     border: '1px solid var(--color-border)',

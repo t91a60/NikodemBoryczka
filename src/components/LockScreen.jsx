@@ -1,9 +1,10 @@
-import { motion } from 'motion/react'
 import { UserCircle } from '@phosphor-icons/react'
 import { useEffect, useState, useCallback } from 'react'
+import { useModalDialog } from '../hooks/useModalDialog.js'
 
 export default function LockScreen({ onUnlock }) {
   const [time, setTime] = useState(new Date())
+  const dialogRef = useModalDialog(true, '.top-bar button[aria-label="User menu"]')
 
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000)
@@ -12,36 +13,22 @@ export default function LockScreen({ onUnlock }) {
 
   const unlock = useCallback(() => onUnlock?.(), [onUnlock])
 
-  useEffect(() => {
-    function handleKey(e) {
-      if (e.key === 'Escape') unlock()
-    }
-    document.addEventListener('keydown', handleKey)
-    return () => document.removeEventListener('keydown', handleKey)
-  }, [unlock])
-
   return (
-    <motion.div
-      role="dialog"
-      aria-modal="true"
+    <dialog
+      ref={dialogRef}
+      className="desktop-modal lock-screen"
       aria-label="Lock screen"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
+      onCancel={(event) => { event.preventDefault(); unlock() }}
       onClick={unlock}
       style={{
         position: 'fixed',
         inset: 0,
         zIndex: 1000,
-        display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
         gap: 20,
-        backgroundColor: 'rgba(12, 6, 12, 0.92)',
-        backdropFilter: 'blur(24px)',
-        WebkitBackdropFilter: 'blur(24px)',
+        backgroundColor: 'var(--color-bg)',
         cursor: 'pointer',
       }}
     >
@@ -70,6 +57,6 @@ export default function LockScreen({ onUnlock }) {
         <UserCircle size={18} weight="duotone" style={{ color: 'var(--color-accent)' }} />
         Unlock
       </button>
-    </motion.div>
+    </dialog>
   )
 }

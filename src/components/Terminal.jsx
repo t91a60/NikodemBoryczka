@@ -34,12 +34,6 @@ export default function Terminal() {
   }, [currentLine])
 
   useEffect(() => {
-    if (bootDone && inputRef.current) {
-      inputRef.current.focus()
-    }
-  }, [bootDone])
-
-  useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight
     }
@@ -128,12 +122,10 @@ export default function Terminal() {
   }
 
   function handleKeyDown(e) {
-    if (e.key === 'Tab') {
+    if (e.key === 'Tab' && !e.shiftKey && suggestions.length > 0) {
       e.preventDefault()
-      if (suggestions.length > 0) {
-        setInput(suggestions[0])
-        setSuggestions([])
-      }
+      setInput(suggestions[0])
+      setSuggestions([])
       return
     }
     if (e.key === 'ArrowUp') {
@@ -175,7 +167,7 @@ export default function Terminal() {
       className="flex flex-col h-full font-mono text-sm"
       style={{ backgroundColor: '#0d0810' }}
       onClick={() => inputRef.current?.focus()}
-      role="terminal"
+      role="region"
       aria-label="Terminal emulator"
     >
       <div
@@ -215,7 +207,7 @@ export default function Terminal() {
                 </pre>
               )}
               {line.type === 'input' && (
-                <span className="text-[13px]" style={{ color: 'var(--color-success)' }}>
+                <span className="text-[13px]" style={{ color: 'var(--color-text-muted)' }}>
                   {line.text}
                 </span>
               )}
@@ -230,18 +222,18 @@ export default function Terminal() {
           ))}
           {bootDone && (
             <form onSubmit={handleSubmit} className="flex items-center gap-2 pt-1 relative">
-              <span style={{ color: 'var(--color-success)', fontSize: 13 }}>$</span>
+              <span style={{ color: 'var(--color-accent-bright)', fontSize: 13 }}>$</span>
               <input
                 ref={inputRef}
                 id="terminal-input"
-                name="terminal-command"
+                 name="terminal-command"
+                 aria-label="Terminal command"
                 type="text"
                 value={input}
                 onChange={handleInputChange}
                 onKeyDown={handleKeyDown}
                 className="flex-1 bg-transparent outline-none border-none text-[13px]"
                 style={{ color: 'var(--color-text)', caretColor: 'var(--color-accent)' }}
-                autoFocus
                 spellCheck={false}
                 autoComplete="off"
               />
@@ -260,19 +252,22 @@ export default function Terminal() {
                   }}
                 >
                   {suggestions.map(s => (
-                    <span
+                    <button
                       key={s}
+                      type="button"
                       style={{
                         fontSize: 11,
                         color: 'var(--color-accent)',
                         cursor: 'pointer',
                         padding: '1px 6px',
                         borderRadius: 3,
+                        background: 'transparent',
+                        border: '1px solid var(--color-border)',
                       }}
                       onClick={() => { setInput(s); setSuggestions([]); inputRef.current?.focus() }}
                     >
                       {s}
-                    </span>
+                    </button>
                   ))}
                 </div>
               )}

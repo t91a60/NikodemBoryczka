@@ -40,7 +40,6 @@ export default function SpeakerPopup() {
               appearance: 'none',
               background: `linear-gradient(to right, var(--color-accent) ${muted ? 0 : vol}%, var(--color-border) ${muted ? 0 : vol}%)`,
               borderRadius: 2,
-              outline: 'none',
               cursor: muted ? 'default' : 'pointer',
             }}
           />

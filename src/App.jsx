@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, lazy, Suspense } from 'react'
-import { AnimatePresence } from 'motion/react'
+import { AnimatePresence, MotionConfig } from 'motion/react'
 import { Terminal, Folder, User } from '@phosphor-icons/react'
 import TopBar from './components/TopBar.jsx'
 import Window from './components/Window.jsx'
@@ -11,6 +11,8 @@ import JsonLdInjector from './components/JsonLdInjector.jsx'
 import { NotificationProvider } from './components/NotificationCenter.jsx'
 import { useNotify } from './hooks/useNotify.js'
 import WindowErrorBoundary from './components/ErrorBoundary.jsx'
+import { useCompactLayout } from './hooks/useCompactLayout.js'
+import { arrangeWindowPositions, defaultPositions } from './lib/windowLayout.js'
 
 const TerminalWindow = lazy(() => import('./components/Terminal.jsx'))
 const ProjectWindow = lazy(() => import('./components/ProjectWindow.jsx'))
@@ -28,28 +30,12 @@ const desktopIcons = [
   { id: 'about', label: 'About', icon: User },
 ]
 
-function isMobile() {
-  return window.innerWidth <= 640
-}
-
-const defaultPositions = {
-  terminal: { left: 80, top: 60 },
-  projects: { left: 240, top: 80 },
-  about: { left: 140, top: 120 },
-}
-
 function loadPositions() {
   try {
     const saved = localStorage.getItem('window-positions')
-    const base = saved ? { ...defaultPositions, ...JSON.parse(saved) } : defaultPositions
-    if (isMobile()) {
-      Object.keys(base).forEach(k => { base[k].left = 0; base[k].top = 0 })
-    }
-    return base
+    return saved ? { ...defaultPositions, ...JSON.parse(saved) } : defaultPositions
   } catch {
-    return isMobile()
-      ? { terminal: { left: 0, top: 0 }, projects: { left: 0, top: 0 }, about: { left: 0, top: 0 } }
-      : defaultPositions
+    return defaultPositions
   }
 }
 
@@ -83,14 +69,25 @@ function WindowFallback() {
 
 let nextZ = 101
 
+function focusLauncher(id) {
+  requestAnimationFrame(() => document.querySelector(`[data-app-id="${id}"]`)?.focus())
+}
+
+function focusTitlebar(id) {
+  requestAnimationFrame(() => document.querySelector(`#window-${id} .window-titlebar`)?.focus())
+}
+
 function AppContent() {
+  const mobile = useCompactLayout()
   const [windows, setWindows] = useState({ terminal: true, projects: true, about: true })
   const [activeWindow, setActiveWindow] = useState('terminal')
   const [zIndices, setZIndices] = useState({ terminal: 100, projects: 99, about: 98 })
-  const [positions] = useState(loadPositions)
+  const [positions, setPositions] = useState(loadPositions)
+  const [layoutVersion, setLayoutVersion] = useState(0)
   const [minimizedWindows, setMinimizedWindows] = useState({})
   const [overviewOpen, setOverviewOpen] = useState(false)
   const [contextMenu, setContextMenu] = useState(null)
+  const closeContextMenu = useCallback(() => setContextMenu(null), [])
   const { notify } = useNotify()
 
   useEffect(() => {
@@ -103,22 +100,20 @@ function AppContent() {
 
   const openWindow = useCallback((id) => {
     setWindows(prev => ({ ...prev, [id]: true }))
+    setMinimizedWindows(prev => ({ ...prev, [id]: false }))
     setActiveWindow(id)
     setZIndices(prev => {
       nextZ++
       return { ...prev, [id]: nextZ }
     })
-    if (isMobile()) {
-      setTimeout(() => {
-        document.getElementById(`window-${id}`)?.scrollIntoView({ behavior: 'smooth' })
-      }, 100)
-    }
+    focusTitlebar(id)
   }, [])
 
   const minimizeWindow = useCallback((id) => {
     setMinimizedWindows(prev => ({ ...prev, [id]: true }))
-    setActiveWindow(prev => prev === id ? null : prev)
-  }, [])
+    setActiveWindow(prev => prev === id ? Object.keys(windows).filter(key => key !== id && !minimizedWindows[key]).sort((a, b) => zIndices[b] - zIndices[a])[0] || null : prev)
+    focusLauncher(id)
+  }, [windows, minimizedWindows, zIndices])
 
   const restoreWindow = useCallback((id) => {
     setMinimizedWindows(prev => {
@@ -131,6 +126,7 @@ function AppContent() {
       nextZ++
       return { ...prev, [id]: nextZ }
     })
+    focusTitlebar(id)
   }, [])
 
   const closeWindow = useCallback((id) => {
@@ -144,8 +140,9 @@ function AppContent() {
       delete next[id]
       return next
     })
-    setActiveWindow(prev => prev === id ? null : prev)
-  }, [])
+    setActiveWindow(prev => prev === id ? Object.keys(windows).filter(key => key !== id && !minimizedWindows[key]).sort((a, b) => zIndices[b] - zIndices[a])[0] || null : prev)
+    focusLauncher(id)
+  }, [windows, minimizedWindows, zIndices])
 
   const focusWindow = useCallback((id) => {
     setActiveWindow(id)
@@ -156,6 +153,7 @@ function AppContent() {
   }, [])
 
   const handlePositionChange = useCallback((id, pos) => {
+    setPositions(prev => ({ ...prev, [id]: pos }))
     savePosition(id, pos)
   }, [])
 
@@ -163,9 +161,18 @@ function AppContent() {
     if (action === 'terminal' || action === 'projects' || action === 'about') {
       openWindow(action)
     } else if (action === 'arrange') {
+      const main = document.getElementById('main-content')
+      const next = arrangeWindowPositions(Object.keys(windowConfigs).filter(id => windows[id]), {
+        width: main.clientWidth,
+        height: Math.max(0, main.clientHeight - 96),
+      }, windowConfigs)
+      setPositions(prev => ({ ...prev, ...next }))
+      setMinimizedWindows({})
+      setLayoutVersion(prev => prev + 1)
+      Object.entries(next).forEach(([id, position]) => savePosition(id, position))
       notify('Windows arranged. Drag them to reposition.', { duration: 3000 })
     }
-  }, [openWindow, notify])
+  }, [openWindow, notify, windows])
 
   useEffect(() => {
     function handler(e) {
@@ -184,6 +191,7 @@ function AppContent() {
 
   useEffect(() => {
     function handler(e) {
+      if (e.defaultPrevented || document.querySelector('dialog[open], [data-dismissable-layer]')) return
       if (e.key === 'Escape') {
         if (overviewOpen) { setOverviewOpen(false); return }
         if (activeWindow) {
@@ -237,13 +245,14 @@ function AppContent() {
 
   return (
     <div
+      className="desktop-shell"
       style={{
         width: '100vw',
-        height: '100vh',
+        height: '100dvh',
         backgroundColor: 'var(--color-bg)',
         position: 'relative',
         overflow: 'hidden',
-        paddingTop: 44,
+        paddingTop: 'var(--topbar-height)',
       }}
     >
       <a href="#main-content" className="skip-link" aria-label="Skip to main content">
@@ -299,6 +308,12 @@ function AppContent() {
       <main
         id="main-content"
         tabIndex={-1}
+        onKeyDown={(event) => {
+          if (event.shiftKey && event.key === 'F10' && event.target === event.currentTarget) {
+            event.preventDefault()
+            setContextMenu({ x: 16, y: 64 })
+          }
+        }}
         style={{
           width: '100%',
           height: '100%',
@@ -311,7 +326,7 @@ function AppContent() {
             const config = windowConfigs[id]
             const Component = config.component
             return (
-              <div key={id} id={`window-${id}`} style={isMobile() ? { position: 'fixed', inset: 0, zIndex: zIndices[id], paddingTop: 44 } : undefined}>
+              <div key={id} id={`window-${id}`}>
                 <Window
                   id={id}
                   title={config.title}
@@ -322,7 +337,8 @@ function AppContent() {
                   onPositionChange={handlePositionChange}
                   width={config.width}
                   height={config.height}
-                  style={isMobile() ? { left: 0, top: 0, zIndex: zIndices[id] } : { ...positions[id], zIndex: zIndices[id] }}
+                  layoutVersion={layoutVersion}
+                  style={{ ...positions[id], zIndex: zIndices[id] }}
                 >
                   <WindowErrorBoundary title={config.title}>
                     <Suspense fallback={<WindowFallback />}>
@@ -335,7 +351,7 @@ function AppContent() {
           })}
         </AnimatePresence>
 
-        {!isMobile() && (
+        {!mobile && (
           <nav className="desktop-sidebar" aria-label="Desktop shortcuts" style={{
             position: 'absolute',
             left: 12,
@@ -401,7 +417,7 @@ function AppContent() {
         <ContextMenu
           x={contextMenu.x}
           y={contextMenu.y}
-          onClose={() => setContextMenu(null)}
+          onClose={closeContextMenu}
           onAction={handleContextAction}
         />
       )}
@@ -411,9 +427,11 @@ function AppContent() {
 
 export default function App() {
   return (
-    <NotificationProvider>
-      <JsonLdInjector />
-      <AppContent />
-    </NotificationProvider>
+    <MotionConfig reducedMotion="user">
+      <NotificationProvider>
+        <JsonLdInjector />
+        <AppContent />
+      </NotificationProvider>
+    </MotionConfig>
   )
 }

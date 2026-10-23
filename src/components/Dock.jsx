@@ -10,6 +10,7 @@ const dockItems = [
 export default function Dock({ onOpen, openWindows, minimizedWindows }) {
   return (
     <nav
+      className="application-dock"
       style={{
         position: 'absolute',
         left: '50%',
@@ -36,6 +37,7 @@ export default function Dock({ onOpen, openWindows, minimizedWindows }) {
         return (
           <button
             key={item.id}
+            data-app-id={item.id}
             onClick={() => onOpen(item.id)}
             className="dock-item"
             style={{

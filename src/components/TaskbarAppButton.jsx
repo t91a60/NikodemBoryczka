@@ -1,7 +1,8 @@
 import { memo } from 'react'
-import { motion } from 'motion/react'
+import { motion, useReducedMotion } from 'motion/react'
 
 function TaskbarAppButton({ icon: Icon, label, isActive, isMinimized, onClick }) {
+  const reducedMotion = useReducedMotion()
   return (
     <motion.button
       layout
@@ -24,7 +25,7 @@ function TaskbarAppButton({ icon: Icon, label, isActive, isMinimized, onClick })
           opacity: isActive ? 1 : 0.5,
           backgroundColor: isActive ? 'var(--color-accent)' : 'var(--color-text-dim)',
         }}
-        transition={{ type: 'spring', stiffness: 300, damping: 22 }}
+        transition={reducedMotion ? { duration: 0 } : { type: 'spring', stiffness: 300, damping: 22 }}
       />
     </motion.button>
   )
