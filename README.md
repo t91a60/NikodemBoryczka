@@ -1,91 +1,66 @@
-# NikodemBoryczka — Dev Desktop
+# Nikodem Boryczka / Dev Desktop
 
-An interactive developer portfolio built as an Ubuntu desktop-inspired experience in the browser. It combines draggable windows, a dock, system tray, project browser, and simulated terminal in a React application.
+My portfolio as an Ubuntu-style desktop in the browser. Open a window to browse projects, read about me, or use the simulated terminal.
 
-[Live demo](https://t91a60.github.io/NikodemBoryczka/) · [Report an issue](https://github.com/t91a60/NikodemBoryczka/issues)
+[Open the portfolio](https://t91a60.github.io/NikodemBoryczka/) · [Report a bug](https://github.com/t91a60/NikodemBoryczka/issues)
 
-## Features
+## Using the desktop
 
-**Desktop metaphor** — the browser becomes a full Ubuntu-like desktop with a top bar (clock, wifi, volume, battery, user menu), a dock with app launchers, and desktop-sidebar shortcuts. Windows can be dragged, resized, minimized to the dock, maximized, and closed — just like a real OS.
+Launch Terminal, Projects, or About from the dock. On desktop, drag windows by their title bars, resize them from the edges, or use Activities to find an app. On smaller screens, windows fill the workspace above the dock.
 
-**Interactive terminal** — a simulated Ubuntu terminal with a boot sequence, ANSI color parsing, and real commands (`help`, `neofetch`, `ls`, `whoami`, `date`, `echo`, `clear`, `history`, `projects`, `about`, `contact`). Arrow keys navigate command history. The neofetch output shows a stylized system information panel with persistent session values.
+In the terminal, start with `help`. Try `projects`, `about`, `contact`, or `neofetch`. Arrow keys recall previous commands; Tab completes a suggestion when one is available.
 
-**Project showcase** — a sidebar-driven project browser with individual color-coded entries (OSP Logbook, AlkoRater, Gather, UPM Ultras). Each project shows a description, tech stack badges, highlights, and a link to its GitHub repository.
+This is a simulation, not a remote machine. Terminal commands run in the browser, and the Wi-Fi and battery displays show simulated status.
 
-**About section** — styled as a system information panel with user specs, a dev stack tag cloud, and staggered entrance animations.
+| Shortcut | Action |
+| --- | --- |
+| Ctrl/Cmd + 1, 2, or 3 | Select Terminal, Projects, or About |
+| Ctrl/Cmd + W | Close the active window |
+| Escape | Dismiss an open menu or dialog, or close the active window |
+| Alt + arrow keys | Move a window while its title bar is focused |
+| Shift + F10 | Open the context menu while the desktop is focused |
 
-**Web app metadata** — manifest, icons, mobile meta tags, Open Graph data, canonical URL, `robots.txt`, sitemap, and a GitHub Pages fallback page.
+Reduced motion, reduced transparency, and increased contrast follow browser preferences. Window controls have larger touch targets, and modal dialogs contain keyboard focus until dismissed.
 
-**Accessibility** — keyboard shortcuts (`Ctrl`/`Cmd` + `1`–`3` to focus windows, `Ctrl`/`Cmd` + `W` or `Escape` to close), skip-navigation link, ARIA labels, focus-visible outlines, reduced-motion support, and semantic roles on interactive widgets.
+## Run locally
 
-**Responsive** — adapts to mobile viewports by collapsing the sidebar, adjusting the top bar, and enabling vertical scrolling. Touch-friendly on small screens.
-
-Window controls use 28px pointer targets and 44px touch targets. Activities and the lock screen use native modal dialogs with focus containment and return. Escape dismisses an open popup before it can close a window. Focus a window title bar and press `Alt` + arrow keys to move it; focus the desktop and press `Shift` + `F10` for its context menu. Arrange Windows restores open windows to a bounded cascade. Reduced motion, reduced transparency, and increased contrast preferences are supported.
-
-## Tech Stack
-
-**Framework** — React 19 with Vite 8, lazy-loaded route components via `React.lazy` and `Suspense`.
-
-**Animation** — Motion (formerly Framer Motion) for window transitions, drag, and staggered entrance effects.
-
-**Styling** — Tailwind CSS v4 with a custom Ubuntu-inspired design token set (dark theme, `#E95420` accent, purple/magenta undertones, Ubuntu font family).
-
-**Icons** — Phosphor Icons (Terminal, Folder, User, GithubLogo, and system tray icons).
-
-**Deployment** — GitHub Pages via GitHub Actions workflow.
-
-## Project Structure
-
-```
-src/
-├── App.jsx                     — Root layout, window manager, keyboard shortcuts
-├── index.css                   — Design tokens, global styles, responsive breakpoints
-├── main.jsx                    — Entry point
-├── components/
-│   ├── Window.jsx              — Draggable, resizable, minimizable/maximizable window chrome
-│   ├── Terminal.jsx            — Simulated Ubuntu terminal with ANSI parsing
-│   ├── ProjectWindow.jsx       — Project gallery with sidebar and detail view
-│   ├── AboutWindow.jsx         — System-info styled about panel
-│   ├── TopBar.jsx              — Clock, system tray, popup menus
-│   ├── Dock.jsx                — Application dock with minimize indicators
-│   └── ErrorBoundary.jsx       — Per-window React error boundary
-├── lib/
-│   └── ansi.js                 — ANSI escape code parser (colors, bold)
-└── data/
-    └── projects.js             — Project metadata and highlights
-public/
-├── 404.html                    — SPA redirect for GitHub Pages
-├── manifest.json               — PWA manifest
-├── favicon.svg
-├── og-image.svg                — Open Graph preview image
-└── icon-{192,512}.svg          — PWA app icons
-```
-
-## Getting Started
-
-```bash
+```sh
 npm ci
 npm run dev
 ```
 
-Opens at `http://localhost:5173`.
+Open the local URL printed by Vite. The app uses the `/NikodemBoryczka/` base path.
 
-## Build
-
-```bash
+```sh
 npm run build
+npm run preview
+```
+
+The production build is written to `dist/`.
+
+## Development
+
+Built with React 19, Vite 8, Tailwind CSS 4, Motion, and Phosphor Icons.
+
+- [`src/App.jsx`](src/App.jsx) manages windows and desktop shortcuts.
+- [`src/components/`](src/components/) contains the apps, window controls, dock, and system menus.
+- [`src/data/projects.js`](src/data/projects.js) holds project descriptions and repository links.
+- [`src/data/commands.js`](src/data/commands.js) defines terminal commands and boot output.
+- [`src/index.css`](src/index.css) contains the theme and responsive layouts.
+
+Run the checks before submitting changes:
+
+```sh
 npm run lint
 npm test
 ```
 
-Output goes to `dist/`. Use `npm run preview` to test the production build locally.
-
 ## Deployment
 
-Push to `main` — the GitHub Actions workflow at `.github/workflows/deploy.yml` builds the project and deploys to GitHub Pages automatically.
+The [GitHub Actions workflow](.github/workflows/deploy.yml) builds and deploys to GitHub Pages on pushes to `main`. It can also be triggered manually.
 
-The site is served from the `t91a60.github.io` domain under the `/NikodemBoryczka/` path. The `base` in `vite.config.js` and the `404.html` redirect are configured accordingly.
+The base path is configured in [`vite.config.js`](vite.config.js).
 
 ## License
 
-This repository does not currently include a license file. Contact the repository owner before reusing the code or visual assets outside the project.
+No license is included. Contact the repository owner for permission to reuse the code or assets.
